@@ -83,26 +83,120 @@ const slides = [
   {
     id: "projects",
     label: "Selected Work",
-    title: "我最想拿來代表自己的，是這些從真實需求長出來的作品與 workflow。",
+    title: "比起用卡片列履歷，我更想把作品做成一個可以探索的展示區。",
     projects: [
       {
         label: "Flagship",
         title: "TrackVest",
-        body: "一個正在持續開發中的個人記帳與投資系統，從帳戶、資產、交易到總帳資料流都自己規劃。",
+        body: "個人記帳與投資系統，從帳戶、資產、交易到總帳資料流都自己規劃。",
+        detail:
+          "一個正在持續開發中的個人全端產品。重點不只是 CRUD，而是把帳戶、資產、交易、CSV 匯入與 GL 邏輯整理成能長期擴充的產品結構。",
         tags: ["React", "NestJS", "PostgreSQL"],
+        x: "48%",
+        y: "46%",
+        size: "lg",
+        links: [
+          {
+            label: "Web Repo",
+            url: "https://github.com/VanessaLin9/trackvest-web",
+          },
+          {
+            label: "API Repo",
+            url: "https://github.com/VanessaLin9/trackvest-api",
+          },
+        ],
       },
       {
         label: "Automation",
         accent: true,
         title: "Lavi",
         body: "內部 AI support agent，處理 Telegram bug intake、向量檢索、重複判斷與 Linear issue sync。",
+        detail:
+          "這條線很能代表我的 ownership。它不是只串一個 LLM，而是把 realtime flow、background flow、duplicate detection、guardrails 和 issue sync 都整理成完整 workflow。",
         tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
+        x: "24%",
+        y: "24%",
+        size: "md",
+        links: [],
       },
       {
         label: "Utility",
         title: "Split-Bill",
         body: "為朋友出遊分帳需求而做的純前端工具，重點是簡單、快速、沒有登入門檻。",
+        detail:
+          "從真實情境長出來的工具型專案，強調使用門檻低、操作直接、沒有登入負擔。這類『小而真的有用』的專案很像我平常做事的風格。",
         tags: ["Vue 3", "Vite", "GitHub Pages"],
+        x: "72%",
+        y: "27%",
+        size: "md",
+        links: [
+          {
+            label: "Repo",
+            url: "https://github.com/VanessaLin9/split-bill",
+          },
+          {
+            label: "Live Demo",
+            url: "https://vanessalin9.github.io/split-bill/",
+          },
+        ],
+      },
+      {
+        label: "Full-Stack",
+        title: "Board Game Record",
+        body: "桌遊紀錄小網站，包含登入、紀錄查詢與玩家管理流程。",
+        detail:
+          "比較早期的個人獨立全端專案，用 Express、MySQL、Sequelize 和 Handlebars 把登入、遊戲紀錄與玩家管理流程串起來。",
+        tags: ["Express", "MySQL", "Sequelize"],
+        x: "16%",
+        y: "62%",
+        size: "sm",
+        links: [
+          {
+            label: "Repo",
+            url: "https://github.com/VanessaLin9/GHrecord-P05",
+          },
+        ],
+      },
+      {
+        label: "Collab",
+        title: "Simple Twitter",
+        body: "多人協作的 Twitter clone，負責後端功能與資料表邏輯。",
+        detail:
+          "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能，是很好的多人協作練習。",
+        tags: ["Node.js", "MySQL", "Socket.IO"],
+        x: "80%",
+        y: "67%",
+        size: "sm",
+        links: [
+          {
+            label: "Repo",
+            url: "https://github.com/VanessaLin9/twitter-fullstack-2020",
+          },
+        ],
+      },
+      {
+        label: "Tooling",
+        title: "Whisper-Script",
+        body: "會議錄音與 Whisper 轉錄輔助工具。",
+        detail:
+          "偏個人工具型實驗，重點在把錄音、轉錄與整理流程變得順手。之後如果要持續往個人工具與 workflow 線延伸，這類作品很適合加入展示。",
+        tags: ["Bash", "Python", "Whisper"],
+        x: "35%",
+        y: "78%",
+        size: "sm",
+        links: [],
+      },
+      {
+        label: "Tooling",
+        title: "GCal-to-Notion",
+        body: "把 Google Calendar 行程同步到 Notion 的小工具。",
+        detail:
+          "偏自動化與整合型 side project，重點不是畫面，而是把兩個日常系統之間的資料流接起來，讓工作流程更順。",
+        tags: ["Python", "Notion", "Automation"],
+        x: "64%",
+        y: "80%",
+        size: "sm",
+        links: [],
       },
     ],
   },
@@ -193,6 +287,13 @@ function useSlideNavigation(total) {
 
 function App() {
   const { currentIndex, goToSlide } = useSlideNavigation(slides.length);
+  const projectSlide = slides.find((slide) => slide.id === "projects");
+  const [activeProjectTitle, setActiveProjectTitle] = useState(
+    projectSlide?.projects[0]?.title ?? ""
+  );
+  const activeProject =
+    projectSlide?.projects.find((project) => project.title === activeProjectTitle) ??
+    projectSlide?.projects[0];
 
   return (
     <div className="app-shell">
@@ -331,45 +432,73 @@ function App() {
                     <h2>{slide.title}</h2>
                   </div>
 
-                  <div className="projects-layout reveal delay-2">
-                    <article className="project-card project-card-featured">
-                      <div>
-                        <span className="project-label">
-                          {slide.projects[0].label}
-                        </span>
-                        <h3>{slide.projects[0].title}</h3>
-                        <p>{slide.projects[0].body}</p>
+                  <div className="showcase-layout reveal delay-2">
+                    <div className="orbit-stage" aria-label="Project showcase orbit">
+                      <div className="orbit-core">
+                        <span className="orbit-core-label">Project Orbit</span>
+                        <strong>Vanessa&apos;s Lab</strong>
                       </div>
-                      <div className="mini-pills">
-                        {slide.projects[0].tags.map((tag) => (
+                      <div className="orbit-ring orbit-ring-a" />
+                      <div className="orbit-ring orbit-ring-b" />
+                      <div className="orbit-ring orbit-ring-c" />
+
+                      {slide.projects.map((project) => (
+                        <button
+                          key={project.title}
+                          type="button"
+                          className={`orbit-node orbit-node-${project.size} ${
+                            activeProject?.title === project.title ? "is-active" : ""
+                          } ${project.accent ? "is-accent" : ""}`}
+                          style={{ left: project.x, top: project.y }}
+                          onMouseEnter={() => setActiveProjectTitle(project.title)}
+                          onFocus={() => setActiveProjectTitle(project.title)}
+                          onClick={() => setActiveProjectTitle(project.title)}
+                          aria-label={`Show ${project.title}`}
+                        >
+                          <span>{project.title}</span>
+                        </button>
+                      ))}
+                    </div>
+
+                    <aside className="showcase-detail">
+                      <p className="card-label">Selected Project</p>
+                      <span
+                        className={`project-label detail-label ${
+                          activeProject?.accent ? "accent" : ""
+                        }`}
+                      >
+                        {activeProject?.label}
+                      </span>
+                      <h3>{activeProject?.title}</h3>
+                      <p className="showcase-summary">{activeProject?.body}</p>
+                      <p className="showcase-detail-copy">{activeProject?.detail}</p>
+
+                      <div className="mini-pills showcase-pills">
+                        {activeProject?.tags.map((tag) => (
                           <span key={tag}>{tag}</span>
                         ))}
                       </div>
-                    </article>
 
-                    <div className="project-stack">
-                      {slide.projects.slice(1).map((project) => (
-                        <article
-                          key={project.title}
-                          className="project-card project-card-compact"
-                        >
-                          <div>
-                            <span
-                              className={`project-label ${project.accent ? "accent" : ""}`}
+                      {activeProject?.links?.length ? (
+                        <div className="showcase-links">
+                          {activeProject.links.map((link) => (
+                            <a
+                              key={link.url}
+                              href={link.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="showcase-link-button"
                             >
-                              {project.label}
-                            </span>
-                            <h3>{project.title}</h3>
-                            <p>{project.body}</p>
-                          </div>
-                          <div className="mini-pills">
-                            {project.tags.map((tag) => (
-                              <span key={tag}>{tag}</span>
-                            ))}
-                          </div>
-                        </article>
-                      ))}
-                    </div>
+                              {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="showcase-note">
+                          目前沒有公開連結，這邊先保留作品說明。
+                        </p>
+                      )}
+                    </aside>
                   </div>
                 </div>
               )}
