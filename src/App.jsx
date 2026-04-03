@@ -5,20 +5,39 @@ const slides = [
     id: "intro",
     label: "Intro",
     eyebrow: "Software Engineer / Full-Stack Developer",
+    introName: "Hi, I'm Vanessa.",
     title: "做有系統感、也真的能被打開來用的軟體。",
-    body: "我是林子琪，具備後端基礎與全端實作經驗，近期以 Node.js / TypeScript 為主。以前在生物實驗室做研究，現在則喜歡把真實世界的混亂流程，整理成清楚、可用、可迭代的產品與工具。",
+    body: "具備後端基礎與全端實作經驗，近期以 Node.js / TypeScript 為主。以前在生物實驗室做研究，現在則喜歡把真實世界的混亂流程，整理成清楚、可用、可迭代的產品與工具。",
+    subBody:
+      "我希望這個網站打開的第一眼，就能讓人理解我是一位會做產品、會整理系統，也很在意使用情境的工程師。",
     pills: [
       "Node.js / TypeScript",
       "Full-Stack Product Builder",
       "ex-Lab Researcher",
       "AI Workflow Design",
     ],
+    quickFacts: [
+      {
+        label: "Current Focus",
+        value: "Full-stack product work",
+      },
+      {
+        label: "Before Tech",
+        value: "Biomedical research labs",
+      },
+      {
+        label: "What I Like",
+        value: "Small tools that solve real pain",
+      },
+    ],
     noteTitle: "目前想做的是一個可以直接拿來自我介紹的網站。",
+    noteMeta: "Field Notes / v0 direction",
     notes: [
       "不是一般向下滾動作品集，而是滿版橫向 slide-based 網站。",
       "部署在 GitHub Pages，技術線先收斂為 React + Tailwind + Vite。",
       "風格會結合工程感、實驗室感，和一點可愛的個人氣質。",
     ],
+    noteFooter: "目前先把骨幹架好，再慢慢把內容和視覺磨成正式版本。",
   },
   {
     id: "about",
@@ -218,10 +237,12 @@ function App() {
             >
               {slide.id === "intro" && (
                 <div className="slide-grid intro-grid">
-                  <div>
+                  <div className="intro-copy">
                     <p className="eyebrow reveal">{slide.eyebrow}</p>
+                    <p className="intro-name reveal">{slide.introName}</p>
                     <h1 className="reveal delay-1">{slide.title}</h1>
                     <p className="lead reveal delay-2">{slide.body}</p>
+                    <p className="intro-sublead reveal delay-2">{slide.subBody}</p>
                     <div className="pill-row reveal delay-2">
                       {slide.pills.map((pill) => (
                         <span key={pill} className="pill">
@@ -245,9 +266,19 @@ function App() {
                         看我的故事
                       </button>
                     </div>
+                    <div className="quick-facts reveal delay-3">
+                      {slide.quickFacts.map((fact) => (
+                        <article key={fact.label} className="quick-fact-card">
+                          <p className="quick-fact-label">{fact.label}</p>
+                          <p className="quick-fact-value">{fact.value}</p>
+                        </article>
+                      ))}
+                    </div>
                   </div>
 
                   <aside className="info-card reveal delay-3">
+                    <div className="note-pin" aria-hidden="true" />
+                    <p className="note-meta">{slide.noteMeta}</p>
                     <p className="card-label">Observation Log</p>
                     <h2>{slide.noteTitle}</h2>
                     <ul className="note-list">
@@ -255,6 +286,7 @@ function App() {
                         <li key={note}>{note}</li>
                       ))}
                     </ul>
+                    <p className="note-footer">{slide.noteFooter}</p>
                   </aside>
                 </div>
               )}
