@@ -6,34 +6,34 @@ const slides = [
     label: "Intro",
     eyebrow: "Software Engineer / Product Engineer",
     introName: "Hi, I'm Vanessa.",
-    title: "做有系統感、也真的能被打開來用的軟體。",
-    body: "具備後端基礎與全端實作經驗，近期以 Node.js / TypeScript 為主。以前在生物實驗室做研究，現在則喜歡把真實世界的混亂流程，整理成清楚、可用、可迭代的產品與工具。",
+    title: "把 workflow、整合需求和產品規則，做成真的能用的系統。",
+    body: "我是一位具備後端基礎與全端實作經驗的軟體工程師，近期以 Node.js / TypeScript 為主，習慣先拆解流程、定義邊界，再把複雜需求落成可運作的產品功能。",
     subBody:
-      "我希望這個網站打開的第一眼，就能讓人理解我是一位會做產品、會整理系統，也很在意使用情境的工程師。",
+      "以前在 biomedical labs 做研究，現在則把那種觀察、整理與驗證的習慣帶進工程工作裡，持續做 workflow-oriented 的產品、整合與實用工具。",
     pills: [
       "Node.js / TypeScript",
-      "Full-Stack Product Builder",
+      "Software Engineer / Product Engineer",
       "ex-Lab Researcher",
-      "AI Workflow Design",
+      "workflow / integration / product systems",
     ],
     noteTitle: "快速認識 Vanessa",
-    noteMeta: "At a Glance",
+    noteMeta: "Quick Profile",
     profileRows: [
       {
         label: "Focus",
-        value: "Product-minded full-stack engineering",
+        value: "workflow-oriented product development",
       },
       {
         label: "Current",
-        value: "React dApp, NestJS API, SDK, AI workflow",
+        value: "React dApp, NestJS API, SDK, AI workflow design",
       },
       {
         label: "Strength",
-        value: "workflow design, system boundaries, integration",
+        value: "system boundaries, integration, product logic",
       },
     ],
     noteFooter:
-      "偏好把複雜流程整理成可理解、可操作的產品體驗。",
+      "習慣從真實需求出發，先整理流程，再做出可迭代的產品。",
   },
   {
     id: "about",
@@ -66,7 +66,7 @@ const slides = [
       {
         meta: "2025 / 07 - Present",
         title: "LAVARAGE",
-        body: "參與 Web3 / DeFi 產品的全端開發，處理 React dApp、Node.js / NestJS API、資料流程、SDK 與 AI support workflow。",
+        body: "在跨國團隊與全英文工作環境中參與 Web3 / DeFi 產品開發，處理 React dApp、NestJS API、資料流程、SDK 串接與 AI support workflow。",
       },
       {
         meta: "2023 / 07 - 2025 / 02",
@@ -83,7 +83,7 @@ const slides = [
   {
     id: "projects",
     label: "Selected Work",
-    title: "比起用卡片列履歷，我更想把作品做成一個可以探索的展示區。",
+    title: "我更想把作品做成一個可以探索、也可以直接點進去看的展示區。",
     projects: [
       {
         label: "Flagship",
@@ -92,8 +92,8 @@ const slides = [
         detail:
           "一個正在持續開發中的個人全端產品。重點不只是 CRUD，而是把帳戶、資產、交易、CSV 匯入與 GL 邏輯整理成能長期擴充的產品結構。",
         tags: ["React", "NestJS", "PostgreSQL"],
-        x: "48%",
-        y: "46%",
+        x: "47%",
+        y: "48%",
         size: "lg",
         links: [
           {
@@ -107,15 +107,33 @@ const slides = [
         ],
       },
       {
-        label: "Automation",
+        label: "Workflow Tool",
+        accent: true,
+        title: "JD Saver",
+        body: "把正在看的職缺頁面直接寫進 Google Sheet 的 Chrome extension，讓求職資料收集流程更順。",
+        detail:
+          "這個專案很能代表我現在的方向。它是從真實 workflow 長出來的工具，整合 Chrome extension、Google OAuth、Google Sheets API、站點 extractor 與發佈前準備，把麻煩的收集流程整理成一個可重複使用的產品。",
+        tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
+        x: "26%",
+        y: "27%",
+        size: "md",
+        links: [
+          {
+            label: "Repo",
+            url: "https://github.com/VanessaLin9/job-application-automation",
+          },
+        ],
+      },
+      {
+        label: "AI Workflow",
         accent: true,
         title: "Lavi",
         body: "內部 AI support agent，處理 Telegram bug intake、向量檢索、重複判斷與 Linear issue sync。",
         detail:
           "這條線很能代表我的 ownership。它不是只串一個 LLM，而是把 realtime flow、background flow、duplicate detection、guardrails 和 issue sync 都整理成完整 workflow。",
         tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
-        x: "24%",
-        y: "24%",
+        x: "74%",
+        y: "26%",
         size: "md",
         links: [],
       },
@@ -126,9 +144,9 @@ const slides = [
         detail:
           "從真實情境長出來的工具型專案，強調使用門檻低、操作直接、沒有登入負擔。這類『小而真的有用』的專案很像我平常做事的風格。",
         tags: ["Vue 3", "Vite", "GitHub Pages"],
-        x: "72%",
-        y: "27%",
-        size: "md",
+        x: "82%",
+        y: "64%",
+        size: "sm",
         links: [
           {
             label: "Repo",
@@ -147,8 +165,8 @@ const slides = [
         detail:
           "比較早期的個人獨立全端專案，用 Express、MySQL、Sequelize 和 Handlebars 把登入、遊戲紀錄與玩家管理流程串起來。",
         tags: ["Express", "MySQL", "Sequelize"],
-        x: "16%",
-        y: "62%",
+        x: "18%",
+        y: "68%",
         size: "sm",
         links: [
           {
@@ -164,8 +182,8 @@ const slides = [
         detail:
           "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能，是很好的多人協作練習。",
         tags: ["Node.js", "MySQL", "Socket.IO"],
-        x: "80%",
-        y: "67%",
+        x: "60%",
+        y: "83%",
         size: "sm",
         links: [
           {
@@ -176,25 +194,13 @@ const slides = [
       },
       {
         label: "Tooling",
-        title: "Whisper-Script",
-        body: "會議錄音與 Whisper 轉錄輔助工具。",
-        detail:
-          "偏個人工具型實驗，重點在把錄音、轉錄與整理流程變得順手。之後如果要持續往個人工具與 workflow 線延伸，這類作品很適合加入展示。",
-        tags: ["Bash", "Python", "Whisper"],
-        x: "35%",
-        y: "78%",
-        size: "sm",
-        links: [],
-      },
-      {
-        label: "Tooling",
         title: "GCal-to-Notion",
         body: "把 Google Calendar 行程同步到 Notion 的小工具。",
         detail:
           "偏自動化與整合型 side project，重點不是畫面，而是把兩個日常系統之間的資料流接起來，讓工作流程更順。",
         tags: ["Python", "Notion", "Automation"],
-        x: "64%",
-        y: "80%",
+        x: "34%",
+        y: "84%",
         size: "sm",
         links: [],
       },
@@ -368,7 +374,7 @@ function App() {
                   <aside className="info-card reveal delay-3">
                     <div className="note-pin" aria-hidden="true" />
                     <p className="note-meta">{slide.noteMeta}</p>
-                    <p className="card-label">Observation Log</p>
+                    <p className="card-label">Why Vanessa</p>
                     <h2>{slide.noteTitle}</h2>
                     <div className="profile-rows">
                       {slide.profileRows.map((row) => (
