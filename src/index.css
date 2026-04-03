@@ -471,6 +471,23 @@ h1,
   color: var(--coral);
 }
 
+.projects-grid {
+  grid-template-rows: auto 1fr;
+  gap: 1.35rem;
+}
+
+.projects-grid .section-copy h2 {
+  max-width: 14ch;
+  font-size: clamp(2.35rem, 3.6vw, 3.8rem);
+}
+
+.projects-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.72fr);
+  gap: 1.2rem;
+  min-height: 0;
+}
+
 .project-row {
   gap: 1.2rem;
 }
@@ -481,6 +498,41 @@ h1,
   flex-direction: column;
   justify-content: space-between;
   min-height: 18.5rem;
+}
+
+.project-card-featured {
+  min-height: 0;
+  padding: 1.65rem;
+}
+
+.project-card-featured h3 {
+  font-size: 1.7rem;
+}
+
+.project-card-featured p {
+  max-width: 36rem;
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+.project-stack {
+  display: grid;
+  gap: 1rem;
+  min-height: 0;
+}
+
+.project-card-compact {
+  min-height: 0;
+  padding: 1.3rem 1.35rem;
+}
+
+.project-card-compact h3 {
+  font-size: 1.3rem;
+}
+
+.project-card-compact p {
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
 .mini-pills {
@@ -680,10 +732,17 @@ h1,
   }
 
   .timeline,
-  .project-row,
   .closing-card {
     grid-template-columns: 1fr;
     flex-direction: column;
+  }
+
+  .projects-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .project-stack {
+    grid-template-columns: 1fr;
   }
 
   .hud {

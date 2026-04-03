@@ -331,45 +331,46 @@ function App() {
                     <h2>{slide.title}</h2>
                   </div>
 
-                  <div className="project-row reveal delay-2">
-                    {slide.projects.map((project) => (
-                      <article key={project.title} className="project-card">
-                        <div>
-                          <span
-                            className={`project-label ${project.accent ? "accent" : ""}`}
-                          >
-                            {project.label}
-                          </span>
-                          <h3>{project.title}</h3>
-                          <p>{project.body}</p>
-                        </div>
-                        <div className="mini-pills">
-                          {project.tags.map((tag) => (
-                            <span key={tag}>{tag}</span>
-                          ))}
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+                  <div className="projects-layout reveal delay-2">
+                    <article className="project-card project-card-featured">
+                      <div>
+                        <span className="project-label">
+                          {slide.projects[0].label}
+                        </span>
+                        <h3>{slide.projects[0].title}</h3>
+                        <p>{slide.projects[0].body}</p>
+                      </div>
+                      <div className="mini-pills">
+                        {slide.projects[0].tags.map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+                    </article>
 
-                  <footer className="closing-card reveal delay-3">
-                    <div>
-                      <p className="card-label">Open for conversation</p>
-                      <h3>希望加入重視產品落地、工程品質與實際問題解決的團隊。</h3>
+                    <div className="project-stack">
+                      {slide.projects.slice(1).map((project) => (
+                        <article
+                          key={project.title}
+                          className="project-card project-card-compact"
+                        >
+                          <div>
+                            <span
+                              className={`project-label ${project.accent ? "accent" : ""}`}
+                            >
+                              {project.label}
+                            </span>
+                            <h3>{project.title}</h3>
+                            <p>{project.body}</p>
+                          </div>
+                          <div className="mini-pills">
+                            {project.tags.map((tag) => (
+                              <span key={tag}>{tag}</span>
+                            ))}
+                          </div>
+                        </article>
+                      ))}
                     </div>
-                    <div className="contact-list">
-                      <a href="mailto:vanessa7591@gmail.com">
-                        vanessa7591@gmail.com
-                      </a>
-                      <a
-                        href="https://github.com/VanessaLin9"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        GitHub / VanessaLin9
-                      </a>
-                    </div>
-                  </footer>
+                  </div>
                 </div>
               )}
             </section>
