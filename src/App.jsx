@@ -16,28 +16,24 @@ const slides = [
       "ex-Lab Researcher",
       "AI Workflow Design",
     ],
-    quickFacts: [
-      {
-        label: "Current Focus",
-        value: "Product-minded full-stack work",
-      },
-      {
-        label: "Before Tech",
-        value: "Biomedical research labs",
-      },
-      {
-        label: "What I Like",
-        value: "Small tools that solve real pain",
-      },
-    ],
-    noteTitle: "一位偏產品思維、也有後端底的工程師。",
+    noteTitle: "快速認識 Vanessa",
     noteMeta: "At a Glance",
-    notes: [
-      "近期以 Node.js / TypeScript 為主要技術，擅長把複雜規則、資料流與跨系統整合需求整理成可運作的產品功能。",
-      "目前在 LAVARAGE 參與 React dApp、NestJS API、SDK 串接、資料流程與 AI support workflow 設計。",
-      "曾在全英文、跨國協作環境中參與需求理解、技術討論與產品開發，也保留了研究背景帶來的觀察力與系統感。",
+    profileRows: [
+      {
+        label: "Focus",
+        value: "Product-minded full-stack engineering",
+      },
+      {
+        label: "Current",
+        value: "React dApp, NestJS API, SDK, AI workflow",
+      },
+      {
+        label: "Strength",
+        value: "workflow design, system boundaries, integration",
+      },
     ],
-    noteFooter: "我偏好做的是那種規則複雜、流程很多，但最後能被整理成清楚使用體驗的產品。",
+    noteFooter:
+      "偏好把複雜流程整理成可理解、可操作的產品體驗。",
   },
   {
     id: "about",
@@ -266,14 +262,6 @@ function App() {
                         看我的故事
                       </button>
                     </div>
-                    <div className="quick-facts reveal delay-3">
-                      {slide.quickFacts.map((fact) => (
-                        <article key={fact.label} className="quick-fact-card">
-                          <p className="quick-fact-label">{fact.label}</p>
-                          <p className="quick-fact-value">{fact.value}</p>
-                        </article>
-                      ))}
-                    </div>
                   </div>
 
                   <aside className="info-card reveal delay-3">
@@ -281,11 +269,14 @@ function App() {
                     <p className="note-meta">{slide.noteMeta}</p>
                     <p className="card-label">Observation Log</p>
                     <h2>{slide.noteTitle}</h2>
-                    <ul className="note-list">
-                      {slide.notes.map((note) => (
-                        <li key={note}>{note}</li>
+                    <div className="profile-rows">
+                      {slide.profileRows.map((row) => (
+                        <div key={row.label} className="profile-row">
+                          <p className="profile-row-label">{row.label}</p>
+                          <p className="profile-row-value">{row.value}</p>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                     <p className="note-footer">{slide.noteFooter}</p>
                   </aside>
                 </div>
