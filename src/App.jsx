@@ -4,7 +4,7 @@ const slides = [
   {
     id: "intro",
     label: "Intro",
-    eyebrow: "Software Engineer / Full-Stack Developer",
+    eyebrow: "Software Engineer / Product Engineer",
     introName: "Hi, I'm Vanessa.",
     title: "做有系統感、也真的能被打開來用的軟體。",
     body: "具備後端基礎與全端實作經驗，近期以 Node.js / TypeScript 為主。以前在生物實驗室做研究，現在則喜歡把真實世界的混亂流程，整理成清楚、可用、可迭代的產品與工具。",
@@ -19,7 +19,7 @@ const slides = [
     quickFacts: [
       {
         label: "Current Focus",
-        value: "Full-stack product work",
+        value: "Product-minded full-stack work",
       },
       {
         label: "Before Tech",
@@ -30,14 +30,14 @@ const slides = [
         value: "Small tools that solve real pain",
       },
     ],
-    noteTitle: "目前想做的是一個可以直接拿來自我介紹的網站。",
-    noteMeta: "Field Notes / v0 direction",
+    noteTitle: "一位偏產品思維、也有後端底的工程師。",
+    noteMeta: "At a Glance",
     notes: [
-      "不是一般向下滾動作品集，而是滿版橫向 slide-based 網站。",
-      "部署在 GitHub Pages，技術線先收斂為 React + Tailwind + Vite。",
-      "風格會結合工程感、實驗室感，和一點可愛的個人氣質。",
+      "近期以 Node.js / TypeScript 為主要技術，擅長把複雜規則、資料流與跨系統整合需求整理成可運作的產品功能。",
+      "目前在 LAVARAGE 參與 React dApp、NestJS API、SDK 串接、資料流程與 AI support workflow 設計。",
+      "曾在全英文、跨國協作環境中參與需求理解、技術討論與產品開發，也保留了研究背景帶來的觀察力與系統感。",
     ],
-    noteFooter: "目前先把骨幹架好，再慢慢把內容和視覺磨成正式版本。",
+    noteFooter: "我偏好做的是那種規則複雜、流程很多，但最後能被整理成清楚使用體驗的產品。",
   },
   {
     id: "about",
