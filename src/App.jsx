@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const socialLinks = {
   github: "https://github.com/VanessaLin9",
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/tzu-chi-lin-vanessa/?locale=en_US",
 };
 
 function GitHubIcon() {
