@@ -126,6 +126,47 @@ a {
   gap: 0.75rem;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.locale-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem;
+  border: 1px solid rgba(96, 117, 139, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.locale-button {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  padding: 0.55rem 0.8rem;
+  color: var(--steel);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.locale-button:hover {
+  transform: translateY(-1px);
+}
+
+.locale-button.is-active {
+  background: var(--ink);
+  color: #fff9f7;
+}
+
 .viewport {
   width: 100vw;
   height: 100vh;
@@ -896,6 +937,15 @@ h1,
 
   .topbar-links {
     overflow-x: auto;
+  }
+
+  .topbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .locale-switch {
+    width: fit-content;
   }
 
   .slide-grid,
