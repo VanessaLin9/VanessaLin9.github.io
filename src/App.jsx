@@ -360,7 +360,7 @@ const localeContent = {
       {
         id: "work",
         label: "Work",
-        title: "My current engineering profile comes from two software roles, built on top of an earlier research background.",
+        title: "My current engineering profile comes from two software roles built on top of an earlier research background.",
         timeline: [
           {
             meta: "2025 / 07 - Present",

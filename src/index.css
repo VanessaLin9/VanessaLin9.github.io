@@ -568,6 +568,39 @@ h1,
   gap: 1.1rem;
 }
 
+.work-grid {
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}
+
+.work-grid .section-copy h2 {
+  max-width: 18ch;
+  font-size: clamp(2.05rem, 3vw, 3.15rem);
+  line-height: 1.02;
+}
+
+.work-grid .timeline {
+  gap: 1rem;
+}
+
+.work-grid .timeline-card {
+  padding: 1.3rem 1.35rem;
+}
+
+.work-grid .timeline-card h3 {
+  font-size: 1.28rem;
+}
+
+.work-grid .timeline-card p {
+  font-size: 0.95rem;
+  line-height: 1.62;
+}
+
+.work-grid .timeline-meta {
+  margin-bottom: 0.65rem;
+  font-size: 0.74rem;
+}
+
 .projects-grid .section-copy h2 {
   max-width: 16ch;
   font-size: clamp(2.15rem, 3.2vw, 3.35rem);
