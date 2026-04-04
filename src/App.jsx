@@ -461,6 +461,13 @@ const localeContent = {
   },
 };
 
+function getLocaleFromUrl() {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.search);
+  const urlLocale = params.get("lang");
+  return urlLocale === "zh" || urlLocale === "en" ? urlLocale : null;
+}
+
 function useSlideNavigation(total) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -547,6 +554,8 @@ function useSlideNavigation(total) {
 function App() {
   const [locale, setLocale] = useState(() => {
     if (typeof window === "undefined") return "zh";
+    const urlLocale = getLocaleFromUrl();
+    if (urlLocale) return urlLocale;
     const storedLocale = window.localStorage.getItem("site-locale");
     if (storedLocale === "zh" || storedLocale === "en") return storedLocale;
     return window.navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
@@ -568,6 +577,14 @@ function App() {
     document.documentElement.lang = locale === "zh" ? "zh-Hant" : "en";
     document.title =
       locale === "zh" ? "Vanessa Lin | 個人網站" : "Vanessa Lin | Personal Site";
+
+    const url = new URL(window.location.href);
+    if (locale === "en") {
+      url.searchParams.set("lang", "en");
+    } else {
+      url.searchParams.delete("lang");
+    }
+    window.history.replaceState({}, "", url);
   }, [locale]);
 
   useEffect(() => {
