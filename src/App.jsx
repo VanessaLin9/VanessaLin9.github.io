@@ -234,7 +234,7 @@ const localeContent = {
     brandTitle: "Personal Site Prototype",
     buttons: {
       work: "View Selected Work",
-      story: "My Story",
+      story: "About Me",
     },
     labels: {
       why: "Why Vanessa",
@@ -250,10 +250,10 @@ const localeContent = {
         label: "Intro",
         eyebrow: "Software Engineer / Product Engineer",
         introName: "Hi, I'm Vanessa.",
-        title: "Turning workflows, integrations, and product rules into systems people can actually use.",
-        body: "I am a software engineer with a strong backend foundation and hands-on full-stack experience. Recently, I have been working mainly with Node.js / TypeScript, and I like to define boundaries first, then turn messy requirements into usable product flows.",
+        title: "I turn workflows, integrations, and product rules into systems people can actually use.",
+        body: "I am a software engineer with a strong backend foundation and hands-on full-stack experience. Recently, I have been working mainly with Node.js / TypeScript, and I like to define system boundaries first, then turn messy requirements into usable product flows.",
         subBody:
-          "I used to work in biomedical labs, and I still bring that habit of observing, structuring, and validating into engineering while building workflow-oriented products, integrations, and practical tools.",
+          "Before software, I worked in biomedical labs. I still bring that habit of observing, structuring, and validating into engineering while building workflow-oriented products, integrations, and practical tools.",
         pills: [
           "Node.js / TypeScript",
           "Software Engineer / Product Engineer",
@@ -277,24 +277,24 @@ const localeContent = {
           },
         ],
         noteFooter:
-          "I tend to start from real needs, structure the flow, and ship products that can keep evolving.",
+          "I usually start from real needs, map the flow, and ship products that can keep evolving.",
       },
       {
         id: "about",
         label: "About",
         title: "From biomedical labs to software engineering",
         paragraphs: [
-          "My research background trained me to observe first, map the context, test assumptions, and only then decide how to build. That habit still shapes how I work as an engineer today.",
-          "I do not just want to ship a feature. I also care about how data moves, how users will understand the flow, and whether the tool will actually be useful in real life.",
+          "My research background trained me to observe first, understand the context, test assumptions, and only then decide how to build. That habit still shapes how I work as an engineer today.",
+          "I do not just want to ship a feature. I also care about how data moves, how users will understand the flow, and whether the product will actually be useful in real life.",
         ],
         principles: [
           {
             title: "Observe",
-            body: "Start with real needs and repeated pain points instead of rushing into code.",
+            body: "Start with real needs and repeated pain points instead of jumping straight into code.",
           },
           {
             title: "Structure",
-            body: "Turn fuzzy requirements into workflows, data models, and concrete implementation cuts.",
+            body: "Turn fuzzy requirements into workflows, data models, and clear implementation steps.",
           },
           {
             title: "Ship",
@@ -305,29 +305,29 @@ const localeContent = {
       {
         id: "work",
         label: "Work",
-        title: "My current engineering shape mostly comes from two software roles, plus a much earlier research chapter.",
+        title: "My current engineering profile comes from two software roles, built on top of an earlier research background.",
         timeline: [
           {
             meta: "2025 / 07 - Present",
             title: "LAVARAGE",
-            body: "Working in a cross-border, English-first team on Web3 / DeFi products across React dApp, NestJS API, data flows, SDK integration, and AI support workflows.",
+            body: "Working in a cross-border, English-first team on Web3 / DeFi products across React dApp, NestJS API, data workflows, SDK integration, and AI support tooling.",
           },
           {
             meta: "2023 / 07 - 2025 / 02",
             title: "TitanSoft",
-            body: "Maintained and refactored existing C# / .NET systems, handling backend flow changes, third-party integrations, and unit / E2E test reinforcement.",
+            body: "Maintained and refactored existing C# / .NET systems, handling backend flow changes, third-party integrations, and stronger unit / E2E test coverage.",
           },
           {
             meta: "2011 - 2020",
             title: "Research Labs",
-            body: "Worked in biomedical research environments, which built my habits around structured analysis, documentation, and learning unfamiliar domains quickly.",
+            body: "Worked in biomedical research environments, which shaped my habits around structured analysis, documentation, and learning unfamiliar domains quickly.",
           },
         ],
       },
       {
         id: "projects",
         label: "Selected Work",
-        title: "I would rather turn my side projects into an interactive showcase than a static list of cards.",
+        title: "I would rather make this an interactive showcase than a static grid of project cards.",
         projects: [
           {
             id: "trackvest",
@@ -335,7 +335,7 @@ const localeContent = {
             title: "TrackVest",
             body: "A personal bookkeeping and investing system where I designed the data flow across accounts, assets, transactions, and general ledger logic.",
             detail:
-              "This is an ongoing full-stack product. What matters here is not simple CRUD, but structuring accounts, assets, transactions, CSV imports, and GL logic into a product that can keep growing.",
+              "This is an ongoing full-stack product. What matters here is not basic CRUD, but structuring accounts, assets, transactions, CSV imports, and general-ledger logic into a product that can keep growing.",
             tags: ["React", "NestJS", "PostgreSQL"],
             x: "47%",
             y: "48%",
@@ -358,7 +358,7 @@ const localeContent = {
             title: "JD Saver",
             body: "A Chrome extension that writes the job page you are viewing directly into Google Sheets and makes job tracking much smoother.",
             detail:
-              "This project represents my current direction very well. It grew from a real workflow and combines a Chrome extension, Google OAuth, Google Sheets API, site-specific extractors, and publishing prep into one repeatable tool.",
+              "This project reflects my current direction especially well. It grew from a real workflow and combines a Chrome extension, Google OAuth, the Google Sheets API, site-specific extractors, and release prep into one repeatable tool.",
             tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
             x: "26%",
             y: "27%",
@@ -377,7 +377,7 @@ const localeContent = {
             title: "Lavi",
             body: "An internal AI support agent for Telegram bug intake, retrieval, duplicate checks, and Linear issue sync.",
             detail:
-              "This line shows a lot of my ownership. It is not just plugging in an LLM. It means structuring realtime and background flows, duplicate detection, guardrails, and issue sync into a complete support workflow.",
+              "This work shows a lot of my ownership. It is not just about plugging in an LLM. It involves structuring realtime and background flows, duplicate detection, guardrails, and issue sync into a complete support workflow.",
             tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
             x: "74%",
             y: "26%",
@@ -390,7 +390,7 @@ const localeContent = {
             title: "Split-Bill",
             body: "A lightweight trip expense tool built for friends, with almost no friction and no login barrier.",
             detail:
-              "This project came from a real-life need. It focuses on being fast, clear, and easy to use, which matches how I usually think about practical tools.",
+              "This project came from a real-life need. It focuses on being fast, clear, and easy to use, which is very close to how I think about practical tools.",
             tags: ["Vue 3", "Vite", "GitHub Pages"],
             x: "82%",
             y: "64%",
@@ -412,7 +412,7 @@ const localeContent = {
             title: "Board Game Record",
             body: "A board game record site with login, history lookup, and player management flows.",
             detail:
-              "One of my earlier independent full-stack projects, built with Express, MySQL, Sequelize, and Handlebars to connect auth, game records, and player management.",
+              "One of my earlier independent full-stack projects, built with Express, MySQL, Sequelize, and Handlebars to connect authentication, game records, and player management.",
             tags: ["Express", "MySQL", "Sequelize"],
             x: "18%",
             y: "68%",
@@ -430,7 +430,7 @@ const localeContent = {
             title: "Simple Twitter",
             body: "A team-built Twitter clone where I mainly worked on backend features and database logic.",
             detail:
-              "This was a useful collaboration project for remote teamwork, covering auth, tweet interactions, follow flows, and Socket.IO chat features.",
+              "This was a useful collaboration project for remote teamwork, covering authentication, tweet interactions, follow flows, and Socket.IO chat features.",
             tags: ["Node.js", "MySQL", "Socket.IO"],
             x: "60%",
             y: "83%",
@@ -448,7 +448,7 @@ const localeContent = {
             title: "GCal-to-Notion",
             body: "A small tool for syncing Google Calendar events into Notion.",
             detail:
-              "This is more about automation and integration than visuals. The value is in connecting two everyday systems so the workflow feels smoother.",
+              "This project is more about automation and integration than visuals. The value is in connecting two everyday systems so the workflow feels smoother.",
             tags: ["Python", "Notion", "Automation"],
             x: "34%",
             y: "84%",
