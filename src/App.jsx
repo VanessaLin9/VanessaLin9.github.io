@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const socialLinks = {
   github: "https://github.com/VanessaLin9",
   linkedin: "https://www.linkedin.com/in/tzu-chi-lin-vanessa/?locale=en_US",
+  cakeresume: "https://www.cakeresume.com/vanessa-lin-6c846e",
 };
 
 function GitHubIcon() {
@@ -27,9 +28,28 @@ function LinkedInIcon() {
   );
 }
 
+function CakeResumeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M6 4.75A2.75 2.75 0 0 1 8.75 2h8.5A2.75 2.75 0 0 1 20 4.75v14.5A2.75 2.75 0 0 1 17.25 22h-8.5A2.75 2.75 0 0 1 6 19.25V4.75Zm2.75-.75a.75.75 0 0 0-.75.75v14.5c0 .41.34.75.75.75h8.5c.41 0 .75-.34.75-.75V4.75a.75.75 0 0 0-.75-.75h-8.5Zm1.5 3.25c0-.55.45-1 1-1h3.5a1 1 0 1 1 0 2h-3.5c-.55 0-1-.45-1-1Zm0 4.75c0-.55.45-1 1-1h5a1 1 0 1 1 0 2h-5c-.55 0-1-.45-1-1Zm0 4.75c0-.55.45-1 1-1h4a1 1 0 1 1 0 2h-4c-.55 0-1-.45-1-1Z"
+      />
+    </svg>
+  );
+}
+
 const localeContent = {
   zh: {
     brandTitle: "Personal Site Prototype",
+    meta: {
+      title: "Vanessa Lin | 軟體工程師 / Product Engineer",
+      description:
+        "Vanessa Lin 的雙語個人網站，聚焦 workflow、系統整合、產品邏輯與實用工具開發。",
+      ogDescription:
+        "雙語個人網站，展示 Vanessa Lin 在 product engineering、workflow-oriented systems 與 practical tools 上的工作與作品。",
+      ogLocale: "zh_TW",
+    },
     buttons: {
       work: "看代表作品",
       story: "看我的故事",
@@ -259,6 +279,14 @@ const localeContent = {
   },
   en: {
     brandTitle: "Personal Site Prototype",
+    meta: {
+      title: "Vanessa Lin | Software Engineer / Product Engineer",
+      description:
+        "Vanessa Lin's bilingual site focused on workflow-oriented product engineering, integrations, product logic, and practical tools.",
+      ogDescription:
+        "Bilingual personal site featuring Vanessa Lin's work in product engineering, workflow-oriented systems, applied AI support flows, and practical tools.",
+      ogLocale: "en_US",
+    },
     buttons: {
       work: "View Selected Work",
       story: "About Me",
@@ -278,7 +306,7 @@ const localeContent = {
         eyebrow: "Software Engineer / Product Engineer",
         introName: "Hi, I'm Vanessa.",
         title: "I turn workflows, integrations, and product rules into systems people can actually use.",
-        body: "I am a software engineer with a strong backend foundation and hands-on full-stack experience. Recently, I have been working mainly with Node.js / TypeScript, and I like to define system boundaries first, then turn messy requirements into usable product flows.",
+        body: "I am a software engineer with a strong backend foundation and hands-on full-stack experience. Recently, I have been working mainly with Node.js / TypeScript, and I like to define system boundaries first, then turn messy requirements into product flows that are clear, usable, and maintainable.",
         subBody:
           "Before software, I worked in biomedical labs. I still bring that habit of observing, structuring, and validating into engineering while building workflow-oriented products, integrations, and practical tools.",
         pills: [
@@ -311,8 +339,8 @@ const localeContent = {
         label: "About",
         title: "From biomedical labs to software engineering",
         paragraphs: [
-          "My research background trained me to observe first, understand the context, test assumptions, and only then decide how to build. That habit still shapes how I work as an engineer today.",
-          "I do not just want to ship a feature. I also care about how data moves, how users will understand the flow, and whether the product will actually be useful in real life.",
+          "My research background trained me to observe first, understand the context, test assumptions, and only then decide how to build. That habit still shapes the way I work as an engineer today.",
+          "I do not just want to ship a feature. I also care about how data moves, how users make sense of a flow, and whether the product will actually hold up in real life.",
         ],
         principles: [
           {
@@ -362,7 +390,7 @@ const localeContent = {
             title: "TrackVest",
             body: "A personal bookkeeping and investing system where I designed the data flow across accounts, assets, transactions, and general ledger logic.",
             detail:
-              "This is an ongoing full-stack product. What matters here is not basic CRUD, but structuring accounts, assets, transactions, CSV imports, and general-ledger logic into a product that can keep growing.",
+              "This is an ongoing full-stack product. What matters here is not basic CRUD, but turning accounts, assets, transactions, CSV imports, and general-ledger logic into a system that can keep growing.",
             tags: ["React", "NestJS", "PostgreSQL"],
             x: "47%",
             y: "48%",
@@ -404,7 +432,7 @@ const localeContent = {
             title: "Lavi",
             body: "An internal AI support agent for Telegram bug intake, retrieval, duplicate checks, and Linear issue sync.",
             detail:
-              "This work shows a lot of my ownership. It is not just about plugging in an LLM. It involves structuring realtime and background flows, duplicate detection, guardrails, and issue sync into a complete support workflow.",
+              "This work shows a lot of my ownership. It is not just about plugging in an LLM. It involves designing realtime and background flows, duplicate detection, guardrails, and issue sync as one complete support workflow.",
             tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
             x: "74%",
             y: "26%",
@@ -493,6 +521,18 @@ function getLocaleFromUrl() {
   const params = new URLSearchParams(window.location.search);
   const urlLocale = params.get("lang");
   return urlLocale === "zh" || urlLocale === "en" ? urlLocale : null;
+}
+
+function updateMetaTag(selector, content) {
+  const element = document.querySelector(selector);
+  if (!element || !content) return;
+  element.setAttribute("content", content);
+}
+
+function updateLinkTag(selector, href) {
+  const element = document.querySelector(selector);
+  if (!element || !href) return;
+  element.setAttribute("href", href);
 }
 
 function useSlideNavigation(total) {
@@ -590,6 +630,8 @@ function App() {
 
   const content = localeContent[locale];
   const slides = content.slides;
+  const siteOrigin = "https://vanessalin9.github.io";
+  const metaImageUrl = `${siteOrigin}/og-card.svg`;
   const { currentIndex, goToSlide } = useSlideNavigation(slides.length);
   const projectSlide = slides.find((slide) => slide.id === "projects");
   const [activeProjectId, setActiveProjectId] = useState(
@@ -611,13 +653,18 @@ function App() {
       url: socialLinks.linkedin,
       icon: <LinkedInIcon />,
     },
+    {
+      id: "cakeresume",
+      label: "CakeResume",
+      url: socialLinks.cakeresume,
+      icon: <CakeResumeIcon />,
+    },
   ];
 
   useEffect(() => {
     window.localStorage.setItem("site-locale", locale);
     document.documentElement.lang = locale === "zh" ? "zh-Hant" : "en";
-    document.title =
-      locale === "zh" ? "Vanessa Lin | 個人網站" : "Vanessa Lin | Personal Site";
+    document.title = content.meta.title;
 
     const url = new URL(window.location.href);
     if (locale === "en") {
@@ -626,6 +673,23 @@ function App() {
       url.searchParams.delete("lang");
     }
     window.history.replaceState({}, "", url);
+
+    updateMetaTag('meta[name="description"]', content.meta.description);
+    updateMetaTag('meta[property="og:title"]', content.meta.title);
+    updateMetaTag('meta[property="og:description"]', content.meta.ogDescription);
+    updateMetaTag('meta[property="og:locale"]', content.meta.ogLocale);
+    updateMetaTag('meta[property="og:url"]', url.toString());
+    updateMetaTag('meta[property="og:image"]', metaImageUrl);
+    updateMetaTag('meta[name="twitter:title"]', content.meta.title);
+    updateMetaTag('meta[name="twitter:description"]', content.meta.ogDescription);
+    updateMetaTag('meta[name="twitter:image"]', metaImageUrl);
+
+    updateLinkTag('link[rel="canonical"]', url.toString());
+    updateLinkTag('link[rel="alternate"][hreflang="zh-Hant"]', `${siteOrigin}/`);
+    updateLinkTag(
+      'link[rel="alternate"][hreflang="en"]',
+      `${siteOrigin}/?lang=en`
+    );
   }, [locale]);
 
   useEffect(() => {
