@@ -1,5 +1,32 @@
 import { useEffect, useState } from "react";
 
+const socialLinks = {
+  github: "https://github.com/VanessaLin9",
+  linkedin: "",
+};
+
+function GitHubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M12 .5C5.65.5.5 5.65.5 12A11.5 11.5 0 0 0 8.36 22.1c.58.1.79-.25.79-.56v-2.17c-3.18.69-3.85-1.35-3.85-1.35-.52-1.3-1.27-1.65-1.27-1.65-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.29.94.1-.73.4-1.23.72-1.51-2.54-.29-5.21-1.27-5.21-5.66 0-1.25.45-2.28 1.17-3.08-.12-.29-.5-1.47.11-3.07 0 0 .96-.31 3.14 1.18a10.92 10.92 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.61 1.6.23 2.78.11 3.07.73.8 1.17 1.83 1.17 3.08 0 4.4-2.68 5.37-5.23 5.65.41.35.77 1.03.77 2.07v3.07c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"
+      />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M4.98 3.5A2.48 2.48 0 1 0 5 8.46a2.48 2.48 0 0 0-.02-4.96ZM2.75 9.75h4.5v11.75h-4.5V9.75Zm7.32 0h4.31v1.6h.06c.6-1.13 2.07-2.32 4.26-2.32 4.56 0 5.4 3 5.4 6.89v5.58h-4.5v-4.95c0-1.18-.02-2.7-1.65-2.7-1.65 0-1.9 1.29-1.9 2.62v5.03h-4.5V9.75h4.52Z"
+      />
+    </svg>
+  );
+}
+
 const localeContent = {
   zh: {
     brandTitle: "Personal Site Prototype",
@@ -571,6 +598,20 @@ function App() {
   const activeProject =
     projectSlide?.projects.find((project) => project.id === activeProjectId) ??
     projectSlide?.projects[0];
+  const socialItems = [
+    {
+      id: "github",
+      label: "GitHub",
+      url: socialLinks.github,
+      icon: <GitHubIcon />,
+    },
+    {
+      id: "linkedin",
+      label: "LinkedIn",
+      url: socialLinks.linkedin,
+      icon: <LinkedInIcon />,
+    },
+  ];
 
   useEffect(() => {
     window.localStorage.setItem("site-locale", locale);
@@ -605,6 +646,34 @@ function App() {
           <span className="brand-title">{content.brandTitle}</span>
         </div>
         <div className="topbar-actions">
+          <div className="social-links" aria-label="External links">
+            {socialItems.map((item) =>
+              item.url ? (
+                <a
+                  key={item.id}
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-link-button"
+                  aria-label={item.label}
+                  title={item.label}
+                >
+                  {item.icon}
+                </a>
+              ) : (
+                <button
+                  key={item.id}
+                  type="button"
+                  className="social-link-button is-disabled"
+                  aria-label={`${item.label} link not set yet`}
+                  title={`${item.label} URL not set yet`}
+                  disabled
+                >
+                  {item.icon}
+                </button>
+              )
+            )}
+          </div>
           <nav className="topbar-links" aria-label="Slide navigation">
             {slides.map((slide, index) => (
               <button

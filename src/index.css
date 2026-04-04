@@ -132,6 +132,47 @@ a {
   gap: 0.9rem;
 }
 
+.social-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.social-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid rgba(96, 117, 139, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.48);
+  color: var(--steel);
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.social-link-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.social-link-button:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  border-color: rgba(96, 117, 139, 0.24);
+}
+
+.social-link-button.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .locale-switch {
   display: inline-flex;
   align-items: center;
@@ -942,6 +983,10 @@ h1,
   .topbar-actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .social-links {
+    width: fit-content;
   }
 
   .locale-switch {
