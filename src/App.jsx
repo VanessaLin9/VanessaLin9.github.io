@@ -1,4 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BriefcaseBusiness,
+  ExternalLink,
+  FlaskConical,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
+import { motion } from "motion/react";
 
 const slides = [
   {
@@ -297,15 +307,46 @@ function App() {
   const [activeProjectTitle, setActiveProjectTitle] = useState(
     projectSlide?.projects[0]?.title ?? ""
   );
+  const profileIcons = useMemo(
+    () => [Workflow, BriefcaseBusiness, Sparkles],
+    []
+  );
+  const principleIcons = useMemo(
+    () => [FlaskConical, Workflow, Sparkles],
+    []
+  );
   const activeProject =
     projectSlide?.projects.find((project) => project.title === activeProjectTitle) ??
     projectSlide?.projects[0];
 
+  const introTransition = {
+    duration: 0.68,
+    ease: [0.22, 1, 0.36, 1],
+  };
+
+  const cardTransition = {
+    type: "spring",
+    stiffness: 180,
+    damping: 18,
+  };
+
   return (
     <div className="app-shell">
-      <div className="ambient ambient-a" />
-      <div className="ambient ambient-b" />
-      <div className="ambient ambient-c" />
+      <motion.div
+        className="ambient ambient-a"
+        animate={{ x: [0, 18, -10, 0], y: [0, -14, 8, 0], scale: [1, 1.06, 0.98, 1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="ambient ambient-b"
+        animate={{ x: [0, -22, 12, 0], y: [0, 10, -10, 0], scale: [1, 0.96, 1.04, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="ambient ambient-c"
+        animate={{ x: [0, 12, -8, 0], y: [0, 8, -12, 0], scale: [1, 1.04, 0.97, 1] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      />
 
       <header className="topbar">
         <div className="brand">
@@ -314,22 +355,27 @@ function App() {
         </div>
         <nav className="topbar-links" aria-label="Slide navigation">
           {slides.map((slide, index) => (
-            <button
+            <motion.button
               key={slide.id}
-              className="ghost-button"
+              className={`ghost-button nav-pill ${
+                index === currentIndex ? "is-active" : ""
+              }`}
               type="button"
               onClick={() => goToSlide(index)}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               {slide.label}
-            </button>
+            </motion.button>
           ))}
         </nav>
       </header>
 
       <main className="viewport">
-        <div
+        <motion.div
           className="slides"
-          style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
+          animate={{ x: `-${currentIndex * 100}vw` }}
+          transition={{ type: "spring", stiffness: 120, damping: 22, mass: 0.9 }}
         >
           {slides.map((slide, index) => (
             <section
@@ -340,116 +386,309 @@ function App() {
             >
               {slide.id === "intro" && (
                 <div className="slide-grid intro-grid">
-                  <div className="intro-copy">
-                    <p className="eyebrow reveal">{slide.eyebrow}</p>
-                    <p className="intro-name reveal">{slide.introName}</p>
-                    <h1 className="reveal delay-1">{slide.title}</h1>
-                    <p className="lead reveal delay-2">{slide.body}</p>
-                    <p className="intro-sublead reveal delay-2">{slide.subBody}</p>
-                    <div className="pill-row reveal delay-2">
+                  <motion.div
+                    className="intro-copy"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, x: 0 }
+                        : { opacity: 0.5, x: -24 }
+                    }
+                    transition={introTransition}
+                  >
+                    <motion.p
+                      className="eyebrow"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 18 }
+                      }
+                      transition={{ ...introTransition, delay: 0.02 }}
+                    >
+                      {slide.eyebrow}
+                    </motion.p>
+                    <motion.p
+                      className="intro-name"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 20 }
+                      }
+                      transition={{ ...introTransition, delay: 0.08 }}
+                    >
+                      {slide.introName}
+                    </motion.p>
+                    <motion.h1
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 24 }
+                      }
+                      transition={{ ...introTransition, delay: 0.14 }}
+                    >
+                      {slide.title}
+                    </motion.h1>
+                    <motion.p
+                      className="lead"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 20 }
+                      }
+                      transition={{ ...introTransition, delay: 0.22 }}
+                    >
+                      {slide.body}
+                    </motion.p>
+                    <motion.p
+                      className="intro-sublead"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 16 }
+                      }
+                      transition={{ ...introTransition, delay: 0.28 }}
+                    >
+                      {slide.subBody}
+                    </motion.p>
+                    <motion.div
+                      className="pill-row"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 14 }
+                      }
+                      transition={{ ...introTransition, delay: 0.34 }}
+                    >
                       {slide.pills.map((pill) => (
-                        <span key={pill} className="pill">
+                        <motion.span
+                          key={pill}
+                          className="pill"
+                          whileHover={{ y: -2, scale: 1.02 }}
+                        >
                           {pill}
-                        </span>
+                        </motion.span>
                       ))}
-                    </div>
-                    <div className="cta-row reveal delay-3">
-                      <button
+                    </motion.div>
+                    <motion.div
+                      className="cta-row"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 16 }
+                      }
+                      transition={{ ...introTransition, delay: 0.4 }}
+                    >
+                      <motion.button
                         className="primary-button"
                         type="button"
                         onClick={() => goToSlide(3)}
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         看代表作品
-                      </button>
-                      <button
+                      </motion.button>
+                      <motion.button
                         className="ghost-button"
                         type="button"
                         onClick={() => goToSlide(1)}
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         看我的故事
-                      </button>
-                    </div>
-                  </div>
+                      </motion.button>
+                    </motion.div>
+                  </motion.div>
 
-                  <aside className="info-card reveal delay-3">
+                  <motion.aside
+                    className="info-card"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0, rotate: -1.8 }
+                        : { opacity: 0.35, y: 22, rotate: -0.6 }
+                    }
+                    transition={cardTransition}
+                    whileHover={{ rotate: -0.6, y: -6 }}
+                  >
                     <div className="note-pin" aria-hidden="true" />
                     <p className="note-meta">{slide.noteMeta}</p>
                     <p className="card-label">Why Vanessa</p>
                     <h2>{slide.noteTitle}</h2>
                     <div className="profile-rows">
-                      {slide.profileRows.map((row) => (
-                        <div key={row.label} className="profile-row">
-                          <p className="profile-row-label">{row.label}</p>
-                          <p className="profile-row-value">{row.value}</p>
-                        </div>
-                      ))}
+                      {slide.profileRows.map((row, rowIndex) => {
+                        const RowIcon = profileIcons[rowIndex];
+                        return (
+                          <div key={row.label} className="profile-row">
+                            <p className="profile-row-label">{row.label}</p>
+                            <p className="profile-row-value">
+                              {RowIcon ? <RowIcon size={16} strokeWidth={2.2} /> : null}
+                              <span>{row.value}</span>
+                            </p>
+                          </div>
+                        );
+                      })}
                     </div>
                     <p className="note-footer">{slide.noteFooter}</p>
-                  </aside>
+                  </motion.aside>
                 </div>
               )}
 
               {slide.id === "about" && (
                 <div className="slide-grid story-grid">
-                  <article className="story-panel reveal">
+                  <motion.article
+                    className="story-panel"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.3, y: 20 }
+                    }
+                    transition={introTransition}
+                  >
                     <p className="eyebrow">{slide.label}</p>
                     <h2>{slide.title}</h2>
                     {slide.paragraphs.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
-                  </article>
+                  </motion.article>
 
-                  <div className="principles-panel reveal delay-2">
+                  <motion.div
+                    className="principles-panel"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.35, y: 24 }
+                    }
+                    transition={{ ...introTransition, delay: 0.14 }}
+                  >
                     <p className="card-label">How I Work</p>
                     <div className="principle-list">
-                      {slide.principles.map((principle) => (
-                        <article key={principle.title} className="principle-card">
-                          <h3>{principle.title}</h3>
-                          <p>{principle.body}</p>
-                        </article>
-                      ))}
+                      {slide.principles.map((principle, principleIndex) => {
+                        const PrincipleIcon = principleIcons[principleIndex];
+                        return (
+                          <motion.article
+                            key={principle.title}
+                            className="principle-card"
+                            whileHover={{ y: -6, scale: 1.01 }}
+                            transition={cardTransition}
+                          >
+                            {PrincipleIcon ? (
+                              <span className="principle-icon">
+                                <PrincipleIcon size={18} strokeWidth={2.1} />
+                              </span>
+                            ) : null}
+                            <h3>{principle.title}</h3>
+                            <p>{principle.body}</p>
+                          </motion.article>
+                        );
+                      })}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               )}
 
               {slide.id === "work" && (
                 <div className="slide-grid work-grid">
-                  <div className="section-copy reveal">
+                  <motion.div
+                    className="section-copy"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.35, y: 24 }
+                    }
+                    transition={introTransition}
+                  >
                     <p className="eyebrow">{slide.label}</p>
                     <h2>{slide.title}</h2>
-                  </div>
-                  <div className="timeline reveal delay-2">
+                  </motion.div>
+                  <motion.div
+                    className="timeline"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.2, y: 24 }
+                    }
+                    transition={{ ...introTransition, delay: 0.16 }}
+                  >
                     {slide.timeline.map((item) => (
-                      <article key={item.title} className="timeline-card">
+                      <motion.article
+                        key={item.title}
+                        className="timeline-card"
+                        whileHover={{ y: -8, scale: 1.01 }}
+                        transition={cardTransition}
+                      >
                         <span className="timeline-meta">{item.meta}</span>
                         <h3>{item.title}</h3>
                         <p>{item.body}</p>
-                      </article>
+                      </motion.article>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
               )}
 
               {slide.id === "projects" && (
                 <div className="slide-grid projects-grid">
-                  <div className="section-copy reveal">
+                  <motion.div
+                    className="section-copy"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.35, y: 24 }
+                    }
+                    transition={introTransition}
+                  >
                     <p className="eyebrow">{slide.label}</p>
                     <h2>{slide.title}</h2>
-                  </div>
+                  </motion.div>
 
-                  <div className="showcase-layout reveal delay-2">
+                  <motion.div
+                    className="showcase-layout"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.2, y: 24 }
+                    }
+                    transition={{ ...introTransition, delay: 0.14 }}
+                  >
                     <div className="orbit-stage" aria-label="Project showcase orbit">
-                      <div className="orbit-core">
+                      <motion.div
+                        className="orbit-core"
+                        animate={{ rotate: [0, 4, -4, 0], scale: [1, 1.03, 0.99, 1] }}
+                        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+                      >
                         <span className="orbit-core-label">Project Orbit</span>
                         <strong>Vanessa&apos;s Lab</strong>
-                      </div>
-                      <div className="orbit-ring orbit-ring-a" />
-                      <div className="orbit-ring orbit-ring-b" />
-                      <div className="orbit-ring orbit-ring-c" />
+                      </motion.div>
+                      <motion.div
+                        className="orbit-ring orbit-ring-a"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                      />
+                      <motion.div
+                        className="orbit-ring orbit-ring-b"
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 44, repeat: Infinity, ease: "linear" }}
+                      />
+                      <motion.div
+                        className="orbit-ring orbit-ring-c"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 62, repeat: Infinity, ease: "linear" }}
+                      />
 
                       {slide.projects.map((project) => (
-                        <button
+                        <motion.button
                           key={project.title}
                           type="button"
                           className={`orbit-node orbit-node-${project.size} ${
@@ -460,13 +699,30 @@ function App() {
                           onFocus={() => setActiveProjectTitle(project.title)}
                           onClick={() => setActiveProjectTitle(project.title)}
                           aria-label={`Show ${project.title}`}
+                          whileHover={{
+                            boxShadow: "0 24px 38px rgba(61, 62, 75, 0.18)",
+                          }}
+                          whileTap={{ scale: 0.98 }}
+                          animate={{
+                            boxShadow:
+                              activeProject?.title === project.title
+                                ? "0 22px 34px rgba(61, 62, 75, 0.16)"
+                                : "0 16px 28px rgba(61, 62, 75, 0.1)",
+                          }}
+                          transition={cardTransition}
                         >
                           <span>{project.title}</span>
-                        </button>
+                        </motion.button>
                       ))}
                     </div>
 
-                    <aside className="showcase-detail">
+                    <motion.aside
+                      key={activeProject?.title}
+                      className="showcase-detail"
+                      initial={{ opacity: 0, y: 22, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={cardTransition}
+                    >
                       <p className="card-label">Selected Project</p>
                       <span
                         className={`project-label detail-label ${
@@ -495,7 +751,8 @@ function App() {
                               rel="noreferrer"
                               className="showcase-link-button"
                             >
-                              {link.label}
+                              <span>{link.label}</span>
+                              <ExternalLink size={16} strokeWidth={2.2} />
                             </a>
                           ))}
                         </div>
@@ -504,13 +761,13 @@ function App() {
                           目前沒有公開連結，這邊先保留作品說明。
                         </p>
                       )}
-                    </aside>
-                  </div>
+                    </motion.aside>
+                  </motion.div>
                 </div>
               )}
             </section>
           ))}
-        </div>
+        </motion.div>
       </main>
 
       <div className="hud">
@@ -522,33 +779,39 @@ function App() {
           />
         </div>
         <div className="hud-controls">
-          <button
+          <motion.button
             className="circle-button"
             type="button"
             aria-label="Previous slide"
             onClick={() => goToSlide(currentIndex - 1)}
+            whileHover={{ y: -2, scale: 1.04 }}
+            whileTap={{ scale: 0.95 }}
           >
-            ←
-          </button>
+            <ArrowLeft size={18} strokeWidth={2.4} />
+          </motion.button>
           <div className="slide-dots" aria-label="Slide indicators">
             {slides.map((slide, index) => (
-              <button
+              <motion.button
                 key={slide.id}
                 className={`slide-dot ${index === currentIndex ? "is-active" : ""}`}
                 type="button"
                 aria-label={`Go to ${slide.label}`}
                 onClick={() => goToSlide(index)}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
               />
             ))}
           </div>
-          <button
+          <motion.button
             className="circle-button"
             type="button"
             aria-label="Next slide"
             onClick={() => goToSlide(currentIndex + 1)}
+            whileHover={{ y: -2, scale: 1.04 }}
+            whileTap={{ scale: 0.95 }}
           >
-            →
-          </button>
+            <ArrowRight size={18} strokeWidth={2.4} />
+          </motion.button>
         </div>
       </div>
     </div>
