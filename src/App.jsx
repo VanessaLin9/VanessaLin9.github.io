@@ -129,7 +129,6 @@ const slides = [
   {
     id: "projects",
     label: "Selected Work",
-    title: "代表作品。",
     projects: [
       {
         label: "Flagship",
@@ -780,7 +779,6 @@ function App() {
                     transition={introTransition}
                   >
                     <p className="eyebrow">{slide.label}</p>
-                    <h2>{slide.title}</h2>
                   </motion.div>
                   <motion.div
                     className="timeline"
