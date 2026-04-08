@@ -24,9 +24,9 @@ const slides = [
     eyebrow: "Software Engineer / Product Engineer",
     introName: "Hi, I'm Vanessa.",
     title: "把複雜 workflow 做成可用產品。",
-    body: "我是一位具備後端基礎與全端實作經驗的軟體工程師，近期以 Node.js / TypeScript 為主，習慣先拆解流程、定義邊界，再把複雜需求落成可運作的產品功能。",
+    body: "我是一位有後端基礎的軟體工程師，主要使用 Node.js / TypeScript，擅長把複雜流程、整合需求與產品規則整理成可落地的功能。",
     subBody:
-      "以前在 biomedical labs 做研究，現在則把那種觀察、整理與驗證的習慣帶進工程工作裡，持續做 workflow-oriented 的產品、整合與實用工具。",
+      "以前做生物醫學研究，現在把那種觀察、整理與驗證的習慣帶進工程工作裡，持續做產品、整合與實用工具。",
     pills: [
       "Node.js / TypeScript",
       "Software Engineer / Product Engineer",
@@ -42,23 +42,30 @@ const slides = [
       },
       {
         label: "Current",
-        value: "React dApp, NestJS API, SDK, AI workflow design",
+        value: "React dApp, NestJS API, SDK, AI workflow",
       },
       {
         label: "Strength",
-        value: "system boundaries, integration, product logic",
+        value: "integration, product logic, system boundaries",
       },
     ],
     noteFooter:
-      "習慣從真實需求出發，先整理流程，再做出可迭代的產品。",
+      "從真實需求出發，先整理流程，再做出能迭代的產品。",
   },
   {
     id: "about",
     label: "About",
     title: "研究背景，怎麼影響我做工程。",
     paragraphs: [
-      "研究背景讓我很習慣先觀察、整理脈絡、測試假設，再決定怎麼實作。這個習慣到現在都還在，也變成我做工程時很重要的底色。",
-      "我不是只想把功能做出來而已，也會一直想：資料怎麼流、使用者會怎麼理解、這個工具到底會不會真的被用。",
+      "研究背景讓我習慣先觀察問題、整理脈絡、測試假設，再決定怎麼實作。這個習慣一直延續到現在。",
+    ],
+  },
+  {
+    id: "approach",
+    label: "Approach",
+    title: "我怎麼做事。",
+    paragraphs: [
+      "做工程時，我不只在意功能做不做得出來，也會在意資料怎麼流、使用者怎麼理解、工具會不會真的被用。",
     ],
     principles: [
       {
@@ -71,29 +78,51 @@ const slides = [
       },
       {
         title: "Ship",
-        body: "先做出可用版本，再持續調整產品體驗與穩定性。",
+        body: "先做出可用版本，再持續調整體驗與穩定性。",
       },
     ],
   },
   {
     id: "work",
     label: "Work",
-    title: "工作經歷與能力輪廓。",
+    title: "工程工作經歷。",
     timeline: [
       {
         meta: "2025 / 07 - Present",
         title: "LAVARAGE",
-        body: "在跨國團隊與全英文工作環境中參與 Web3 / DeFi 產品開發，處理 React dApp、NestJS API、資料流程、SDK 串接與 AI support workflow。",
+        body: "在跨國、全英文環境參與 Web3 / DeFi 產品開發，負責 React dApp、NestJS API、資料流程、SDK 串接與 AI workflow。",
       },
       {
         meta: "2023 / 07 - 2025 / 02",
         title: "TitanSoft",
-        body: "以 C# / .NET 維護與重構既有系統，做後端流程調整、第三方整合、unit test 與 E2E test 補強。",
+        body: "以 C# / .NET 維護與重構既有系統，處理後端流程調整、第三方整合，以及 unit / E2E test 補強。",
       },
       {
         meta: "2011 - 2020",
         title: "Research Labs",
         body: "在醫學院、醫院與研究機構做生物醫學研究，培養了系統化分析、文件整理與快速學習陌生領域的能力。",
+      },
+    ],
+  },
+  {
+    id: "strengths",
+    label: "Strengths",
+    title: "我現在能提供什麼。",
+    paragraphs: [
+      "我的強項不是單一技術點，而是把流程、整合與產品規則整理成能真的被使用的系統。",
+    ],
+    principles: [
+      {
+        title: "Workflow Thinking",
+        body: "擅長先拆流程、找邊界，再把複雜需求落成可運作的產品功能。",
+      },
+      {
+        title: "Backend Foundation",
+        body: "熟悉 Node.js / TypeScript，也有 API、資料流與整合實作經驗。",
+      },
+      {
+        title: "Domain Learning",
+        body: "能快速理解陌生領域，並在跨團隊協作中整理出可執行的方案。",
       },
     ],
   },
@@ -105,9 +134,9 @@ const slides = [
       {
         label: "Flagship",
         title: "TrackVest",
-        body: "個人記帳與投資系統，從帳戶、資產、交易到總帳資料流都自己規劃。",
+        body: "個人記帳與投資系統，從帳戶、資產、交易到總帳資料流都自行規劃。",
         detail:
-          "一個正在持續開發中的個人全端產品。重點不只是 CRUD，而是把帳戶、資產、交易、CSV 匯入與 GL 邏輯整理成能長期擴充的產品結構。",
+          "持續開發中的全端產品。重點不只是 CRUD，而是把帳戶、資產、交易、CSV 匯入與 GL 邏輯整理成能長期擴充的產品結構。",
         tags: ["React", "NestJS", "PostgreSQL"],
         x: "47%",
         y: "48%",
@@ -127,9 +156,9 @@ const slides = [
         label: "Workflow Tool",
         accent: true,
         title: "JD Saver",
-        body: "把正在看的職缺頁面直接寫進 Google Sheet 的 Chrome extension，讓求職資料收集流程更順。",
+        body: "把正在看的職缺頁面直接寫進 Google Sheet 的 Chrome extension，讓求職資料收集更順。",
         detail:
-          "這個專案很能代表我現在的方向。它是從真實 workflow 長出來的工具，整合 Chrome extension、Google OAuth、Google Sheets API、站點 extractor 與發佈前準備，把麻煩的收集流程整理成一個可重複使用的產品。",
+          "從真實 workflow 長出來的工具，整合 Chrome extension、Google OAuth、Google Sheets API 與站點 extractor，把麻煩的收集流程整理成可重複使用的產品。",
         tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
         x: "26%",
         y: "27%",
@@ -147,7 +176,7 @@ const slides = [
         title: "Lavi",
         body: "內部 AI support agent，處理 Telegram bug intake、向量檢索、重複判斷與 Linear issue sync。",
         detail:
-          "這條線很能代表我的 ownership。它不是只串一個 LLM，而是把 realtime flow、background flow、duplicate detection、guardrails 和 issue sync 都整理成完整 workflow。",
+          "不只是接一個 LLM，而是把 realtime flow、background flow、duplicate detection、guardrails 和 issue sync 都整理成完整 workflow。",
         tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
         x: "74%",
         y: "26%",
@@ -157,9 +186,9 @@ const slides = [
       {
         label: "Utility",
         title: "Split-Bill",
-        body: "為朋友出遊分帳需求而做的純前端工具，重點是簡單、快速、沒有登入門檻。",
+        body: "為出遊分帳需求而做的純前端工具，重點是簡單、快速、沒有登入門檻。",
         detail:
-          "從真實情境長出來的工具型專案，強調使用門檻低、操作直接、沒有登入負擔。這類『小而真的有用』的專案很像我平常做事的風格。",
+          "從真實情境長出來的工具型專案，強調使用門檻低、操作直接、沒有登入負擔。",
         tags: ["Vue 3", "Vite", "GitHub Pages"],
         x: "82%",
         y: "64%",
@@ -178,9 +207,9 @@ const slides = [
       {
         label: "Full-Stack",
         title: "Board Game Record",
-        body: "桌遊紀錄小網站，包含登入、紀錄查詢與玩家管理流程。",
+        body: "桌遊紀錄小網站，包含登入、紀錄查詢與玩家管理。",
         detail:
-          "比較早期的個人獨立全端專案，用 Express、MySQL、Sequelize 和 Handlebars 把登入、遊戲紀錄與玩家管理流程串起來。",
+          "較早期的個人全端專案，用 Express、MySQL、Sequelize 和 Handlebars 串起登入、遊戲紀錄與玩家管理。",
         tags: ["Express", "MySQL", "Sequelize"],
         x: "18%",
         y: "68%",
@@ -197,7 +226,7 @@ const slides = [
         title: "Simple Twitter",
         body: "多人協作的 Twitter clone，負責後端功能與資料表邏輯。",
         detail:
-          "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能，是很好的多人協作練習。",
+          "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能。",
         tags: ["Node.js", "MySQL", "Socket.IO"],
         x: "60%",
         y: "83%",
@@ -214,7 +243,7 @@ const slides = [
         title: "GCal-to-Notion",
         body: "把 Google Calendar 行程同步到 Notion 的小工具。",
         detail:
-          "偏自動化與整合型 side project，重點不是畫面，而是把兩個日常系統之間的資料流接起來，讓工作流程更順。",
+          "偏自動化與整合型 side project，把兩個日常系統之間的資料流接起來，讓工作流程更順。",
         tags: ["Python", "Notion", "Automation"],
         x: "34%",
         y: "84%",
@@ -451,6 +480,7 @@ function App() {
       <main className="viewport">
         <motion.div
           className="slides"
+          style={{ width: `${slides.length * 100}vw` }}
           animate={{ x: `-${currentIndex * 100}vw` }}
           transition={{ type: "spring", stiffness: 120, damping: 22, mass: 0.9 }}
         >
@@ -662,6 +692,27 @@ function App() {
               )}
 
               {slide.id === "about" && (
+                <div className="slide-grid story-grid story-grid-solo">
+                  <motion.article
+                    className="story-panel"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.3, y: 20 }
+                    }
+                    transition={introTransition}
+                  >
+                    <p className="eyebrow">{slide.label}</p>
+                    <h2>{slide.title}</h2>
+                    {slide.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </motion.article>
+                </div>
+              )}
+
+              {slide.id === "approach" && (
                 <div className="slide-grid story-grid">
                   <motion.article
                     className="story-panel"
@@ -753,6 +804,61 @@ function App() {
                         <p>{item.body}</p>
                       </motion.article>
                     ))}
+                  </motion.div>
+                </div>
+              )}
+
+              {slide.id === "strengths" && (
+                <div className="slide-grid story-grid">
+                  <motion.article
+                    className="story-panel"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.3, y: 20 }
+                    }
+                    transition={introTransition}
+                  >
+                    <p className="eyebrow">{slide.label}</p>
+                    <h2>{slide.title}</h2>
+                    {slide.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </motion.article>
+
+                  <motion.div
+                    className="principles-panel"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.35, y: 24 }
+                    }
+                    transition={{ ...introTransition, delay: 0.14 }}
+                  >
+                    <p className="card-label">What I Bring</p>
+                    <div className="principle-list">
+                      {slide.principles.map((principle, principleIndex) => {
+                        const PrincipleIcon = principleIcons[principleIndex];
+                        return (
+                          <motion.article
+                            key={principle.title}
+                            className="principle-card"
+                            whileHover={{ y: -6, scale: 1.01 }}
+                            transition={cardTransition}
+                          >
+                            {PrincipleIcon ? (
+                              <span className="principle-icon">
+                                <PrincipleIcon size={18} strokeWidth={2.1} />
+                              </span>
+                            ) : null}
+                            <h3>{principle.title}</h3>
+                            <p>{principle.body}</p>
+                          </motion.article>
+                        );
+                      })}
+                    </div>
                   </motion.div>
                 </div>
               )}

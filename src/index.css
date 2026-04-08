@@ -224,6 +224,14 @@ a {
   align-items: center;
 }
 
+.story-grid-solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.story-grid-solo .story-panel {
+  max-width: 48rem;
+}
+
 .section-copy {
   max-width: 72rem;
 }
