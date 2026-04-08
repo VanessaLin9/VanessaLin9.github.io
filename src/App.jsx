@@ -637,22 +637,6 @@ function App() {
                     onMouseLeave={() => resetCardTilt(introPointerX, introPointerY)}
                   >
                     <div className="note-pin" aria-hidden="true" />
-                    <motion.span
-                      className="card-sticker card-sticker-a"
-                      animate={{ y: [0, -4, 0], rotate: [-4, -1, -4] }}
-                      transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <FlaskConical size={14} strokeWidth={2.2} />
-                      lab mode
-                    </motion.span>
-                    <motion.span
-                      className="card-sticker card-sticker-b"
-                      animate={{ y: [0, 4, 0], rotate: [5, 2, 5] }}
-                      transition={{ duration: 5.1, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <Sparkles size={14} strokeWidth={2.2} />
-                      ships tools
-                    </motion.span>
                     <p className="note-meta">{slide.noteMeta}</p>
                     <p className="card-label">Why Vanessa</p>
                     <h2>{slide.noteTitle}</h2>
