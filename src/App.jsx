@@ -9,7 +9,13 @@ import {
   Sparkles,
   Workflow,
 } from "lucide-react";
-import { motion } from "motion/react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
 
 const slides = [
   {
@@ -17,7 +23,7 @@ const slides = [
     label: "Intro",
     eyebrow: "Software Engineer / Product Engineer",
     introName: "Hi, I'm Vanessa.",
-    title: "把 workflow、整合需求和產品規則，做成真的能用的系統。",
+    title: "把複雜 workflow 做成可用產品。",
     body: "我是一位具備後端基礎與全端實作經驗的軟體工程師，近期以 Node.js / TypeScript 為主，習慣先拆解流程、定義邊界，再把複雜需求落成可運作的產品功能。",
     subBody:
       "以前在 biomedical labs 做研究，現在則把那種觀察、整理與驗證的習慣帶進工程工作裡，持續做 workflow-oriented 的產品、整合與實用工具。",
@@ -27,8 +33,8 @@ const slides = [
       "ex-Lab Researcher",
       "workflow / integration / product systems",
     ],
-    noteTitle: "快速認識 Vanessa",
-    noteMeta: "Quick Profile",
+    noteTitle: "快速認識",
+    noteMeta: "At a Glance",
     profileRows: [
       {
         label: "Focus",
@@ -49,7 +55,7 @@ const slides = [
   {
     id: "about",
     label: "About",
-    title: "從 biomedical labs 到 software engineering",
+    title: "研究背景，怎麼影響我做工程。",
     paragraphs: [
       "研究背景讓我很習慣先觀察、整理脈絡、測試假設，再決定怎麼實作。這個習慣到現在都還在，也變成我做工程時很重要的底色。",
       "我不是只想把功能做出來而已，也會一直想：資料怎麼流、使用者會怎麼理解、這個工具到底會不會真的被用。",
@@ -72,7 +78,7 @@ const slides = [
   {
     id: "work",
     label: "Work",
-    title: "目前的能力輪廓，主要來自兩段工程工作加上更早以前的研究經歷。",
+    title: "工作經歷與能力輪廓。",
     timeline: [
       {
         meta: "2025 / 07 - Present",
@@ -94,7 +100,7 @@ const slides = [
   {
     id: "projects",
     label: "Selected Work",
-    title: "我更想把作品做成一個可以探索、也可以直接點進去看的展示區。",
+    title: "代表作品。",
     projects: [
       {
         label: "Flagship",
@@ -316,6 +322,16 @@ function App() {
     () => [FlaskConical, Workflow, Sparkles],
     []
   );
+  const orbitStars = useMemo(
+    () =>
+      Array.from({ length: 14 }, (_, index) => ({
+        id: `star-${index}`,
+        x: `${10 + ((index * 17) % 82)}%`,
+        y: `${12 + ((index * 23) % 74)}%`,
+        delay: index * 0.4,
+      })),
+    []
+  );
   const orbitSatellites = useMemo(
     () => [
       { label: "workflow", icon: Workflow, className: "orbit-satellite-a" },
@@ -328,6 +344,33 @@ function App() {
   const activeProject =
     projectSlide?.projects.find((project) => project.title === activeProjectTitle) ??
     projectSlide?.projects[0];
+  const introPointerX = useMotionValue(0);
+  const introPointerY = useMotionValue(0);
+  const detailPointerX = useMotionValue(0);
+  const detailPointerY = useMotionValue(0);
+  const introRotateX = useSpring(useTransform(introPointerY, [-24, 24], [6, -6]), {
+    stiffness: 150,
+    damping: 18,
+  });
+  const introRotateY = useSpring(useTransform(introPointerX, [-24, 24], [-6, 6]), {
+    stiffness: 150,
+    damping: 18,
+  });
+  const detailRotateX = useSpring(
+    useTransform(detailPointerY, [-20, 20], [4.5, -4.5]),
+    {
+      stiffness: 150,
+      damping: 18,
+    }
+  );
+  const detailRotateY = useSpring(
+    useTransform(detailPointerX, [-20, 20], [-4.5, 4.5]),
+    {
+      stiffness: 150,
+      damping: 18,
+    }
+  );
+  const orbitGlow = useMotionTemplate`radial-gradient(circle at ${orbitSpotlight.x}% ${orbitSpotlight.y}%, rgba(255, 255, 255, 0.76), transparent 16%)`;
 
   const introTransition = {
     duration: 0.68,
@@ -349,6 +392,19 @@ function App() {
 
   const resetOrbitMove = () => {
     setOrbitSpotlight({ x: 50, y: 48 });
+  };
+
+  const handleCardTilt = (event, setX, setY, intensity = 24) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * intensity * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * intensity * 2;
+    setX(x);
+    setY(y);
+  };
+
+  const resetCardTilt = (setX, setY) => {
+    setX(0);
+    setY(0);
   };
 
   return (
@@ -549,6 +605,11 @@ function App() {
                   <motion.aside
                     className="info-card"
                     initial={false}
+                    style={{
+                      rotateX: introRotateX,
+                      rotateY: introRotateY,
+                      transformPerspective: 1200,
+                    }}
                     animate={
                       index === currentIndex
                         ? { opacity: 1, y: 0, rotate: -1.8 }
@@ -556,8 +617,28 @@ function App() {
                     }
                     transition={cardTransition}
                     whileHover={{ rotate: -0.6, y: -6 }}
+                    onMouseMove={(event) =>
+                      handleCardTilt(event, introPointerX, introPointerY)
+                    }
+                    onMouseLeave={() => resetCardTilt(introPointerX, introPointerY)}
                   >
                     <div className="note-pin" aria-hidden="true" />
+                    <motion.span
+                      className="card-sticker card-sticker-a"
+                      animate={{ y: [0, -4, 0], rotate: [-4, -1, -4] }}
+                      transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <FlaskConical size={14} strokeWidth={2.2} />
+                      lab mode
+                    </motion.span>
+                    <motion.span
+                      className="card-sticker card-sticker-b"
+                      animate={{ y: [0, 4, 0], rotate: [5, 2, 5] }}
+                      transition={{ duration: 5.1, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Sparkles size={14} strokeWidth={2.2} />
+                      ships tools
+                    </motion.span>
                     <p className="note-meta">{slide.noteMeta}</p>
                     <p className="card-label">Why Vanessa</p>
                     <h2>{slide.noteTitle}</h2>
@@ -702,7 +783,7 @@ function App() {
                     }
                     transition={{ ...introTransition, delay: 0.14 }}
                   >
-                    <div
+                    <motion.div
                       className="orbit-stage"
                       aria-label="Project showcase orbit"
                       onMouseMove={handleOrbitMove}
@@ -710,8 +791,23 @@ function App() {
                       style={{
                         "--spotlight-x": `${orbitSpotlight.x}%`,
                         "--spotlight-y": `${orbitSpotlight.y}%`,
+                        backgroundImage: `${orbitGlow}, radial-gradient(circle at center, rgba(139, 170, 183, 0.18), transparent 34%), linear-gradient(rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.46))`,
                       }}
                     >
+                      {orbitStars.map((star) => (
+                        <motion.span
+                          key={star.id}
+                          className="orbit-star"
+                          style={{ left: star.x, top: star.y }}
+                          animate={{ opacity: [0.18, 0.8, 0.25], scale: [0.9, 1.25, 1] }}
+                          transition={{
+                            duration: 3.8,
+                            delay: star.delay,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      ))}
                       <motion.div
                         className="orbit-core"
                         animate={{ rotate: [0, 4, -4, 0], scale: [1, 1.03, 0.99, 1] }}
@@ -793,14 +889,23 @@ function App() {
                           <span>{project.title}</span>
                         </motion.button>
                       ))}
-                    </div>
+                    </motion.div>
 
                     <motion.aside
                       key={activeProject?.title}
                       className="showcase-detail"
+                      style={{
+                        rotateX: detailRotateX,
+                        rotateY: detailRotateY,
+                        transformPerspective: 1200,
+                      }}
                       initial={{ opacity: 0, y: 22, scale: 0.98 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={cardTransition}
+                      onMouseMove={(event) =>
+                        handleCardTilt(event, detailPointerX, detailPointerY, 20)
+                      }
+                      onMouseLeave={() => resetCardTilt(detailPointerX, detailPointerY)}
                     >
                       <p className="card-label">Selected Project</p>
                       <p className="showcase-hint">
