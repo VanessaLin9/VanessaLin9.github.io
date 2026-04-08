@@ -133,6 +133,88 @@ a {
   box-shadow: 0 12px 24px rgba(61, 62, 75, 0.16);
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.social-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.social-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid rgba(96, 117, 139, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.48);
+  color: var(--steel);
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.social-link-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.social-link-button:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  border-color: rgba(96, 117, 139, 0.24);
+}
+
+.social-link-button.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.locale-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem;
+  border: 1px solid rgba(96, 117, 139, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.locale-button {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  padding: 0.55rem 0.8rem;
+  color: var(--steel);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.locale-button:hover {
+  transform: translateY(-1px);
+}
+
+.locale-button.is-active {
+  background: var(--ink);
+  color: #fff9f7;
+}
+
 .viewport {
   width: 100vw;
   height: 100vh;
@@ -535,6 +617,39 @@ h1,
 .projects-grid {
   grid-template-rows: auto 1fr;
   gap: 0.55rem;
+}
+
+.work-grid {
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}
+
+.work-grid .section-copy h2 {
+  max-width: 18ch;
+  font-size: clamp(2.05rem, 3vw, 3.15rem);
+  line-height: 1.02;
+}
+
+.work-grid .timeline {
+  gap: 1rem;
+}
+
+.work-grid .timeline-card {
+  padding: 1.3rem 1.35rem;
+}
+
+.work-grid .timeline-card h3 {
+  font-size: 1.28rem;
+}
+
+.work-grid .timeline-card p {
+  font-size: 0.95rem;
+  line-height: 1.62;
+}
+
+.work-grid .timeline-meta {
+  margin-bottom: 0.65rem;
+  font-size: 0.74rem;
 }
 
 .projects-grid .section-copy h2 {
@@ -986,6 +1101,19 @@ h1,
 
   .topbar-links {
     overflow-x: auto;
+  }
+
+  .topbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .social-links {
+    width: fit-content;
+  }
+
+  .locale-switch {
+    width: fit-content;
   }
 
   .slide-grid,
