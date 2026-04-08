@@ -130,8 +130,8 @@ const slides = [
         detail:
           "持續開發中的全端產品。重點不只是 CRUD，而是把帳戶、資產、交易、CSV 匯入與 GL 邏輯整理成能長期擴充的產品結構。",
         tags: ["React", "NestJS", "PostgreSQL"],
-        x: "47%",
-        y: "48%",
+        x: "35%",
+        y: "28%",
         size: "lg",
         links: [
           {
@@ -152,8 +152,8 @@ const slides = [
         detail:
           "從真實 workflow 長出來的工具，整合 Chrome extension、Google OAuth、Google Sheets API 與站點 extractor，把麻煩的收集流程整理成可重複使用的產品。",
         tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
-        x: "26%",
-        y: "27%",
+        x: "18%",
+        y: "16%",
         size: "md",
         links: [
           {
@@ -170,8 +170,8 @@ const slides = [
         detail:
           "不只是接一個 LLM，而是把 realtime flow、background flow、duplicate detection、guardrails 和 issue sync 都整理成完整 workflow。",
         tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
-        x: "74%",
-        y: "26%",
+        x: "73%",
+        y: "14%",
         size: "md",
         links: [],
       },
@@ -182,8 +182,8 @@ const slides = [
         detail:
           "從真實情境長出來的工具型專案，強調使用門檻低、操作直接、沒有登入負擔。",
         tags: ["Vue 3", "Vite", "GitHub Pages"],
-        x: "82%",
-        y: "64%",
+        x: "80%",
+        y: "54%",
         size: "sm",
         links: [
           {
@@ -203,8 +203,8 @@ const slides = [
         detail:
           "較早期的個人全端專案，用 Express、MySQL、Sequelize 和 Handlebars 串起登入、遊戲紀錄與玩家管理。",
         tags: ["Express", "MySQL", "Sequelize"],
-        x: "18%",
-        y: "68%",
+        x: "17%",
+        y: "60%",
         size: "sm",
         links: [
           {
@@ -220,8 +220,8 @@ const slides = [
         detail:
           "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能。",
         tags: ["Node.js", "MySQL", "Socket.IO"],
-        x: "60%",
-        y: "83%",
+        x: "57%",
+        y: "68%",
         size: "sm",
         links: [
           {
@@ -237,8 +237,8 @@ const slides = [
         detail:
           "偏自動化與整合型 side project，把兩個日常系統之間的資料流接起來，讓工作流程更順。",
         tags: ["Python", "Notion", "Automation"],
-        x: "34%",
-        y: "84%",
+        x: "32%",
+        y: "76%",
         size: "sm",
         links: [],
       },
@@ -351,14 +351,6 @@ function App() {
         y: `${12 + ((index * 23) % 74)}%`,
         delay: index * 0.4,
       })),
-    []
-  );
-  const orbitSatellites = useMemo(
-    () => [
-      { label: "workflow", icon: Workflow, className: "orbit-satellite-a" },
-      { label: "lab notes", icon: FlaskConical, className: "orbit-satellite-b" },
-      { label: "shipped tools", icon: Sparkles, className: "orbit-satellite-c" },
-    ],
     []
   );
   const [orbitSpotlight, setOrbitSpotlight] = useState({ x: 50, y: 48 });
@@ -907,25 +899,6 @@ function App() {
                         animate={{ rotate: 360 }}
                         transition={{ duration: 62, repeat: Infinity, ease: "linear" }}
                       />
-                      {orbitSatellites.map((satellite, satelliteIndex) => {
-                        const SatelliteIcon = satellite.icon;
-                        return (
-                          <motion.div
-                            key={satellite.label}
-                            className={`orbit-satellite ${satellite.className}`}
-                            animate={{ y: [0, -8, 0, 6, 0] }}
-                            transition={{
-                              duration: 7 + satelliteIndex * 1.5,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }}
-                          >
-                            <SatelliteIcon size={14} strokeWidth={2.2} />
-                            <span>{satellite.label}</span>
-                          </motion.div>
-                        );
-                      })}
-
                       {slide.projects.map((project, projectIndex) => (
                         <motion.button
                           key={project.title}
