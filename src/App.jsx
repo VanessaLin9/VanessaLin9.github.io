@@ -58,13 +58,6 @@ const slides = [
     title: "研究背景，怎麼影響我做工程。",
     paragraphs: [
       "研究背景讓我習慣先觀察問題、整理脈絡、測試假設，再決定怎麼實作。這個習慣一直延續到現在。",
-    ],
-  },
-  {
-    id: "approach",
-    label: "Approach",
-    title: "我怎麼做事。",
-    paragraphs: [
       "做工程時，我不只在意功能做不做得出來，也會在意資料怎麼流、使用者怎麼理解、工具會不會真的被用。",
     ],
     principles: [
@@ -691,27 +684,6 @@ function App() {
               )}
 
               {slide.id === "about" && (
-                <div className="slide-grid story-grid story-grid-solo">
-                  <motion.article
-                    className="story-panel"
-                    initial={false}
-                    animate={
-                      index === currentIndex
-                        ? { opacity: 1, y: 0 }
-                        : { opacity: 0.3, y: 20 }
-                    }
-                    transition={introTransition}
-                  >
-                    <p className="eyebrow">{slide.label}</p>
-                    <h2>{slide.title}</h2>
-                    {slide.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </motion.article>
-                </div>
-              )}
-
-              {slide.id === "approach" && (
                 <div className="slide-grid story-grid">
                   <motion.article
                     className="story-panel"
