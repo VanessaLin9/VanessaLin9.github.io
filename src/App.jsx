@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  BadgeInfo,
   BriefcaseBusiness,
   ExternalLink,
   FlaskConical,
@@ -315,6 +316,15 @@ function App() {
     () => [FlaskConical, Workflow, Sparkles],
     []
   );
+  const orbitSatellites = useMemo(
+    () => [
+      { label: "workflow", icon: Workflow, className: "orbit-satellite-a" },
+      { label: "lab notes", icon: FlaskConical, className: "orbit-satellite-b" },
+      { label: "shipped tools", icon: Sparkles, className: "orbit-satellite-c" },
+    ],
+    []
+  );
+  const [orbitSpotlight, setOrbitSpotlight] = useState({ x: 50, y: 48 });
   const activeProject =
     projectSlide?.projects.find((project) => project.title === activeProjectTitle) ??
     projectSlide?.projects[0];
@@ -328,6 +338,17 @@ function App() {
     type: "spring",
     stiffness: 180,
     damping: 18,
+  };
+
+  const handleOrbitMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    setOrbitSpotlight({ x, y });
+  };
+
+  const resetOrbitMove = () => {
+    setOrbitSpotlight({ x: 50, y: 48 });
   };
 
   return (
@@ -504,6 +525,25 @@ function App() {
                         看我的故事
                       </motion.button>
                     </motion.div>
+                    <motion.div
+                      className="micro-notes"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 18 }
+                      }
+                      transition={{ ...introTransition, delay: 0.46 }}
+                    >
+                      <div className="micro-note">
+                        <FlaskConical size={16} strokeWidth={2.1} />
+                        <span>research habits still shape how I build</span>
+                      </div>
+                      <div className="micro-note">
+                        <Sparkles size={16} strokeWidth={2.1} />
+                        <span>small tools, clean flows, product-minded systems</span>
+                      </div>
+                    </motion.div>
                   </motion.div>
 
                   <motion.aside
@@ -662,7 +702,16 @@ function App() {
                     }
                     transition={{ ...introTransition, delay: 0.14 }}
                   >
-                    <div className="orbit-stage" aria-label="Project showcase orbit">
+                    <div
+                      className="orbit-stage"
+                      aria-label="Project showcase orbit"
+                      onMouseMove={handleOrbitMove}
+                      onMouseLeave={resetOrbitMove}
+                      style={{
+                        "--spotlight-x": `${orbitSpotlight.x}%`,
+                        "--spotlight-y": `${orbitSpotlight.y}%`,
+                      }}
+                    >
                       <motion.div
                         className="orbit-core"
                         animate={{ rotate: [0, 4, -4, 0], scale: [1, 1.03, 0.99, 1] }}
@@ -686,8 +735,26 @@ function App() {
                         animate={{ rotate: 360 }}
                         transition={{ duration: 62, repeat: Infinity, ease: "linear" }}
                       />
+                      {orbitSatellites.map((satellite, satelliteIndex) => {
+                        const SatelliteIcon = satellite.icon;
+                        return (
+                          <motion.div
+                            key={satellite.label}
+                            className={`orbit-satellite ${satellite.className}`}
+                            animate={{ y: [0, -8, 0, 6, 0] }}
+                            transition={{
+                              duration: 7 + satelliteIndex * 1.5,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          >
+                            <SatelliteIcon size={14} strokeWidth={2.2} />
+                            <span>{satellite.label}</span>
+                          </motion.div>
+                        );
+                      })}
 
-                      {slide.projects.map((project) => (
+                      {slide.projects.map((project, projectIndex) => (
                         <motion.button
                           key={project.title}
                           type="button"
@@ -704,12 +771,24 @@ function App() {
                           }}
                           whileTap={{ scale: 0.98 }}
                           animate={{
+                            y:
+                              activeProject?.title === project.title
+                                ? -6
+                                : [0, -4, 0, 3, 0],
                             boxShadow:
                               activeProject?.title === project.title
                                 ? "0 22px 34px rgba(61, 62, 75, 0.16)"
                                 : "0 16px 28px rgba(61, 62, 75, 0.1)",
                           }}
-                          transition={cardTransition}
+                          transition={
+                            activeProject?.title === project.title
+                              ? cardTransition
+                              : {
+                                  duration: 6 + projectIndex * 0.45,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                }
+                          }
                         >
                           <span>{project.title}</span>
                         </motion.button>
@@ -724,6 +803,10 @@ function App() {
                       transition={cardTransition}
                     >
                       <p className="card-label">Selected Project</p>
+                      <p className="showcase-hint">
+                        <BadgeInfo size={15} strokeWidth={2.1} />
+                        <span>hover or click the orbit to browse projects</span>
+                      </p>
                       <span
                         className={`project-label detail-label ${
                           activeProject?.accent ? "accent" : ""
