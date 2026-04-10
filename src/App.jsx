@@ -1,4 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BadgeInfo,
+  BriefcaseBusiness,
+  ExternalLink,
+  FlaskConical,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
 
 const socialLinks = {
   github: "https://github.com/VanessaLin9",
@@ -61,6 +78,8 @@ const localeContent = {
       projectOrbit: "Project Orbit",
       lab: "Vanessa's Lab",
       noPublicLink: "目前沒有公開連結，這邊先保留作品說明。",
+      showcaseHint: "滑過或點擊左邊節點來切換作品",
+      whatIBring: "What I Bring",
     },
     slides: [
       {
@@ -68,42 +87,35 @@ const localeContent = {
         label: "首頁",
         eyebrow: "Software Engineer / Product Engineer",
         introName: "Hi, I'm Vanessa.",
-        title: "把 workflow、整合需求和產品規則，做成真的能用的系統。",
-        body: "我是一位具備後端基礎與全端實作經驗的軟體工程師，近期以 Node.js / TypeScript 為主，習慣先拆解流程、定義邊界，再把複雜需求落成可運作的產品功能。",
+        title: "把複雜 workflow 做成可用產品。",
+        body: "我是一位有後端基礎的軟體工程師，主要使用 Node.js / TypeScript，擅長把複雜流程、整合需求與產品規則整理成可落地的功能。",
         subBody:
-          "以前在 biomedical labs 做研究，現在則把那種觀察、整理與驗證的習慣帶進工程工作裡，持續做 workflow-oriented 的產品、整合與實用工具。",
+          "以前做生物醫學研究，現在把那種觀察、整理與驗證的習慣帶進工程工作裡，持續做產品、整合與實用工具。",
         pills: [
           "Node.js / TypeScript",
           "Software Engineer / Product Engineer",
           "ex-Lab Researcher",
           "workflow / integration / product systems",
         ],
-        noteTitle: "快速認識 Vanessa",
-        noteMeta: "Quick Profile",
+        noteTitle: "快速認識",
+        noteMeta: "At a Glance",
         profileRows: [
-          {
-            label: "Focus",
-            value: "workflow-oriented product development",
-          },
-          {
-            label: "Current",
-            value: "React dApp, NestJS API, SDK, AI workflow design",
-          },
+          { label: "Focus", value: "workflow-oriented product development" },
+          { label: "Current", value: "React dApp, NestJS API, SDK, AI workflow" },
           {
             label: "Strength",
-            value: "system boundaries, integration, product logic",
+            value: "integration, product logic, system boundaries",
           },
         ],
-        noteFooter:
-          "習慣從真實需求出發，先整理流程，再做出可迭代的產品。",
+        noteFooter: "從真實需求出發，先整理流程，再做出能迭代的產品。",
       },
       {
         id: "about",
         label: "關於我",
-        title: "從 biomedical labs 到 software engineering",
+        title: "研究背景，怎麼影響我做工程。",
         paragraphs: [
-          "研究背景讓我很習慣先觀察、整理脈絡、測試假設，再決定怎麼實作。這個習慣到現在都還在，也變成我做工程時很重要的底色。",
-          "我不是只想把功能做出來而已，也會一直想：資料怎麼流、使用者會怎麼理解、這個工具到底會不會真的被用。",
+          "研究背景讓我習慣先觀察問題、整理脈絡、測試假設，再決定怎麼實作。這個習慣一直延續到現在。",
+          "做工程時，我不只在意功能做不做得出來，也會在意資料怎麼流、使用者怎麼理解、工具會不會真的被用。",
         ],
         principles: [
           {
@@ -116,24 +128,24 @@ const localeContent = {
           },
           {
             title: "Ship",
-            body: "先做出可用版本，再持續調整產品體驗與穩定性。",
+            body: "先做出可用版本，再持續調整體驗與穩定性。",
           },
         ],
       },
       {
         id: "work",
         label: "經歷",
-        title: "目前的能力輪廓，主要來自兩段工程工作加上更早以前的研究經歷。",
+        title: "工程工作經歷。",
         timeline: [
           {
             meta: "2025 / 07 - Present",
             title: "LAVARAGE",
-            body: "在跨國團隊與全英文工作環境中參與 Web3 / DeFi 產品開發，處理 React dApp、NestJS API、資料流程、SDK 串接與 AI support workflow。",
+            body: "在跨國、全英文環境參與 Web3 / DeFi 產品開發，負責 React dApp、NestJS API、資料流程、SDK 串接與 AI workflow。",
           },
           {
             meta: "2023 / 07 - 2025 / 02",
             title: "TitanSoft",
-            body: "以 C# / .NET 維護與重構既有系統，做後端流程調整、第三方整合、unit test 與 E2E test 補強。",
+            body: "以 C# / .NET 維護與重構既有系統，處理後端流程調整、第三方整合，以及 unit / E2E test 補強。",
           },
           {
             meta: "2011 - 2020",
@@ -143,20 +155,41 @@ const localeContent = {
         ],
       },
       {
+        id: "strengths",
+        label: "能力",
+        title: "我現在能提供什麼。",
+        paragraphs: [
+          "我的強項不是單一技術點，而是把流程、整合與產品規則整理成能真的被使用的系統。",
+        ],
+        principles: [
+          {
+            title: "Workflow Thinking",
+            body: "擅長先拆流程、找邊界，再把複雜需求落成可運作的產品功能。",
+          },
+          {
+            title: "Backend Foundation",
+            body: "熟悉 Node.js / TypeScript，也有 API、資料流與整合實作經驗。",
+          },
+          {
+            title: "Domain Learning",
+            body: "能快速理解陌生領域，並在跨團隊協作中整理出可執行的方案。",
+          },
+        ],
+      },
+      {
         id: "projects",
-        label: "作品",
-        title: "我更想把作品做成一個可以探索、也可以直接點進去看的展示區。",
+        label: "Selected Work",
         projects: [
           {
             id: "trackvest",
             label: "Flagship",
             title: "TrackVest",
-            body: "個人記帳與投資系統，從帳戶、資產、交易到總帳資料流都自己規劃。",
+            body: "個人記帳與投資系統，從帳戶、資產、交易到總帳資料流都自行規劃。",
             detail:
-              "一個正在持續開發中的個人全端產品。重點不只是 CRUD，而是把帳戶、資產、交易、CSV 匯入與 GL 邏輯整理成能長期擴充的產品結構。",
+              "持續開發中的全端產品。重點不只是 CRUD，而是把帳戶、資產、交易、CSV 匯入與 GL 邏輯整理成能長期擴充的產品結構。",
             tags: ["React", "NestJS", "PostgreSQL"],
-            x: "47%",
-            y: "48%",
+            x: "35%",
+            y: "28%",
             size: "lg",
             links: [
               {
@@ -174,12 +207,12 @@ const localeContent = {
             label: "Workflow Tool",
             accent: true,
             title: "JD Saver",
-            body: "把正在看的職缺頁面直接寫進 Google Sheet 的 Chrome extension，讓求職資料收集流程更順。",
+            body: "把正在看的職缺頁面直接寫進 Google Sheet 的 Chrome extension，讓求職資料收集更順。",
             detail:
-              "這個專案很能代表我現在的方向。它是從真實 workflow 長出來的工具，整合 Chrome extension、Google OAuth、Google Sheets API、站點 extractor 與發佈前準備，把麻煩的收集流程整理成一個可重複使用的產品。",
+              "從真實 workflow 長出來的工具，整合 Chrome extension、Google OAuth、Google Sheets API 與站點 extractor，把麻煩的收集流程整理成可重複使用的產品。",
             tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
-            x: "26%",
-            y: "27%",
+            x: "18%",
+            y: "16%",
             size: "md",
             links: [
               {
@@ -195,10 +228,10 @@ const localeContent = {
             title: "Lavi",
             body: "內部 AI support agent，處理 Telegram bug intake、向量檢索、重複判斷與 Linear issue sync。",
             detail:
-              "這條線很能代表我的 ownership。它不是只串一個 LLM，而是把 realtime flow、background flow、duplicate detection、guardrails 和 issue sync 都整理成完整 workflow。",
+              "不只是接一個 LLM，而是把 realtime flow、background flow、duplicate detection、guardrails 和 issue sync 都整理成完整 workflow。",
             tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
-            x: "74%",
-            y: "26%",
+            x: "73%",
+            y: "14%",
             size: "md",
             links: [],
           },
@@ -206,12 +239,12 @@ const localeContent = {
             id: "split-bill",
             label: "Utility",
             title: "Split-Bill",
-            body: "為朋友出遊分帳需求而做的純前端工具，重點是簡單、快速、沒有登入門檻。",
+            body: "為出遊分帳需求而做的純前端工具，重點是簡單、快速、沒有登入門檻。",
             detail:
-              "從真實情境長出來的工具型專案，強調使用門檻低、操作直接、沒有登入負擔。這類『小而真的有用』的專案很像我平常做事的風格。",
+              "從真實情境長出來的工具型專案，強調使用門檻低、操作直接、沒有登入負擔。",
             tags: ["Vue 3", "Vite", "GitHub Pages"],
-            x: "82%",
-            y: "64%",
+            x: "80%",
+            y: "54%",
             size: "sm",
             links: [
               {
@@ -228,12 +261,12 @@ const localeContent = {
             id: "board-game-record",
             label: "Full-Stack",
             title: "Board Game Record",
-            body: "桌遊紀錄小網站，包含登入、紀錄查詢與玩家管理流程。",
+            body: "桌遊紀錄小網站，包含登入、紀錄查詢與玩家管理。",
             detail:
-              "比較早期的個人獨立全端專案，用 Express、MySQL、Sequelize 和 Handlebars 把登入、遊戲紀錄與玩家管理流程串起來。",
+              "較早期的個人全端專案，用 Express、MySQL、Sequelize 和 Handlebars 串起登入、遊戲紀錄與玩家管理。",
             tags: ["Express", "MySQL", "Sequelize"],
-            x: "18%",
-            y: "68%",
+            x: "17%",
+            y: "60%",
             size: "sm",
             links: [
               {
@@ -248,10 +281,10 @@ const localeContent = {
             title: "Simple Twitter",
             body: "多人協作的 Twitter clone，負責後端功能與資料表邏輯。",
             detail:
-              "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能，是很好的多人協作練習。",
+              "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能。",
             tags: ["Node.js", "MySQL", "Socket.IO"],
-            x: "60%",
-            y: "83%",
+            x: "57%",
+            y: "68%",
             size: "sm",
             links: [
               {
@@ -266,10 +299,10 @@ const localeContent = {
             title: "GCal-to-Notion",
             body: "把 Google Calendar 行程同步到 Notion 的小工具。",
             detail:
-              "偏自動化與整合型 side project，重點不是畫面，而是把兩個日常系統之間的資料流接起來，讓工作流程更順。",
+              "偏自動化與整合型 side project，把兩個日常系統之間的資料流接起來，讓工作流程更順。",
             tags: ["Python", "Notion", "Automation"],
-            x: "34%",
-            y: "84%",
+            x: "32%",
+            y: "76%",
             size: "sm",
             links: [],
           },
@@ -284,7 +317,7 @@ const localeContent = {
       description:
         "Vanessa Lin's bilingual site focused on workflow-oriented product engineering, integrations, product logic, and practical tools.",
       ogDescription:
-        "Bilingual personal site featuring Vanessa Lin's work in product engineering, workflow-oriented systems, applied AI support flows, and practical tools.",
+        "Bilingual personal site featuring Vanessa Lin's work in workflow-oriented product engineering, practical tools, and systems thinking.",
       ogLocale: "en_US",
     },
     buttons: {
@@ -298,6 +331,8 @@ const localeContent = {
       projectOrbit: "Project Orbit",
       lab: "Vanessa's Lab",
       noPublicLink: "No public link for now, so this panel keeps the project summary instead.",
+      showcaseHint: "Hover or click the orbit to browse projects",
+      whatIBring: "What I Bring",
     },
     slides: [
       {
@@ -305,10 +340,10 @@ const localeContent = {
         label: "Intro",
         eyebrow: "Software Engineer / Product Engineer",
         introName: "Hi, I'm Vanessa.",
-        title: "I turn workflows, integrations, and product rules into systems people can actually use.",
-        body: "I am a software engineer with a strong backend foundation and hands-on full-stack experience. Recently, I have been working mainly with Node.js / TypeScript, and I like to define system boundaries first, then turn messy requirements into product flows that are clear, usable, and maintainable.",
+        title: "I turn complex workflows into usable products.",
+        body: "I am a software engineer with a strong backend foundation, working mainly with Node.js / TypeScript. I like turning messy flows, integrations, and product rules into features that are clear and practical.",
         subBody:
-          "Before software, I worked in biomedical labs. I still bring that habit of observing, structuring, and validating into engineering while building workflow-oriented products, integrations, and practical tools.",
+          "Before software, I worked in biomedical labs. I still bring that habit of observing, structuring, and validating into engineering while building products, integrations, and practical tools.",
         pills: [
           "Node.js / TypeScript",
           "Software Engineer / Product Engineer",
@@ -318,29 +353,22 @@ const localeContent = {
         noteTitle: "Quick Profile",
         noteMeta: "At a Glance",
         profileRows: [
-          {
-            label: "Focus",
-            value: "workflow-oriented product development",
-          },
-          {
-            label: "Current",
-            value: "React dApp, NestJS API, SDK, AI workflow design",
-          },
+          { label: "Focus", value: "workflow-oriented product development" },
+          { label: "Current", value: "React dApp, NestJS API, SDK, AI workflow" },
           {
             label: "Strength",
-            value: "system boundaries, integration, product logic",
+            value: "integration, product logic, system boundaries",
           },
         ],
-        noteFooter:
-          "I usually start from real needs, map the flow, and ship products that can keep evolving.",
+        noteFooter: "I start from real needs, map the flow, and ship products that can keep evolving.",
       },
       {
         id: "about",
         label: "About",
-        title: "From biomedical labs to software engineering",
+        title: "How a research background shapes my engineering.",
         paragraphs: [
-          "My research background trained me to observe first, understand the context, test assumptions, and only then decide how to build. That habit still shapes the way I work as an engineer today.",
-          "I do not just want to ship a feature. I also care about how data moves, how users make sense of a flow, and whether the product will actually hold up in real life.",
+          "My research background trained me to observe first, understand context, test assumptions, and only then decide how to build. That habit still shapes the way I work today.",
+          "I do not just care about shipping a feature. I also care about how data moves, how users make sense of a flow, and whether the product will actually hold up in real use.",
         ],
         principles: [
           {
@@ -353,19 +381,19 @@ const localeContent = {
           },
           {
             title: "Ship",
-            body: "Get a usable version out first, then keep refining the product experience and stability.",
+            body: "Get a usable version out first, then keep refining experience and stability.",
           },
         ],
       },
       {
         id: "work",
         label: "Work",
-        title: "My current engineering profile comes from two software roles built on top of an earlier research background.",
+        title: "Software engineering experience.",
         timeline: [
           {
             meta: "2025 / 07 - Present",
             title: "LAVARAGE",
-            body: "Working in a cross-border, English-first team on Web3 / DeFi products across React dApp, NestJS API, data workflows, SDK integration, and AI support tooling.",
+            body: "Working in a cross-border, English-first environment on Web3 / DeFi products across React dApp, NestJS API, data workflows, SDK integration, and AI workflow design.",
           },
           {
             meta: "2023 / 07 - 2025 / 02",
@@ -380,20 +408,41 @@ const localeContent = {
         ],
       },
       {
+        id: "strengths",
+        label: "Strengths",
+        title: "What I bring to a team.",
+        paragraphs: [
+          "My strength is not one isolated technical point. It is turning workflows, integrations, and product rules into systems people can actually use.",
+        ],
+        principles: [
+          {
+            title: "Workflow Thinking",
+            body: "I like breaking down flows, clarifying boundaries, and turning complexity into shippable product behavior.",
+          },
+          {
+            title: "Backend Foundation",
+            body: "Comfortable with Node.js / TypeScript, APIs, data flow design, and integration-heavy implementation.",
+          },
+          {
+            title: "Domain Learning",
+            body: "I can get up to speed in unfamiliar domains quickly and turn ambiguity into something executable.",
+          },
+        ],
+      },
+      {
         id: "projects",
         label: "Selected Work",
-        title: "I would rather make this an interactive showcase than a static grid of project cards.",
         projects: [
           {
             id: "trackvest",
             label: "Flagship",
             title: "TrackVest",
-            body: "A personal bookkeeping and investing system where I designed the data flow across accounts, assets, transactions, and general ledger logic.",
+            body: "A personal bookkeeping and investing system where I designed the flow across accounts, assets, transactions, and general-ledger logic.",
             detail:
-              "This is an ongoing full-stack product. What matters here is not basic CRUD, but turning accounts, assets, transactions, CSV imports, and general-ledger logic into a system that can keep growing.",
+              "An ongoing full-stack product. The value here is not basic CRUD, but shaping accounts, assets, transactions, CSV imports, and general-ledger logic into a structure that can keep growing.",
             tags: ["React", "NestJS", "PostgreSQL"],
-            x: "47%",
-            y: "48%",
+            x: "35%",
+            y: "28%",
             size: "lg",
             links: [
               {
@@ -411,12 +460,12 @@ const localeContent = {
             label: "Workflow Tool",
             accent: true,
             title: "JD Saver",
-            body: "A Chrome extension that writes the job page you are viewing directly into Google Sheets and makes job tracking much smoother.",
+            body: "A Chrome extension that writes the job page you are viewing directly into Google Sheets and makes job tracking smoother.",
             detail:
-              "This project reflects my current direction especially well. It grew from a real workflow and combines a Chrome extension, Google OAuth, the Google Sheets API, site-specific extractors, and release prep into one repeatable tool.",
+              "A tool grown from a real workflow. It combines a Chrome extension, Google OAuth, the Google Sheets API, and site-specific extractors into one repeatable product flow.",
             tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
-            x: "26%",
-            y: "27%",
+            x: "18%",
+            y: "16%",
             size: "md",
             links: [
               {
@@ -432,10 +481,10 @@ const localeContent = {
             title: "Lavi",
             body: "An internal AI support agent for Telegram bug intake, retrieval, duplicate checks, and Linear issue sync.",
             detail:
-              "This work shows a lot of my ownership. It is not just about plugging in an LLM. It involves designing realtime and background flows, duplicate detection, guardrails, and issue sync as one complete support workflow.",
+              "This is not just plugging in an LLM. It is a full workflow with realtime and background flows, duplicate detection, guardrails, and issue sync.",
             tags: ["OpenClaw", "ChromaDB", "LLM Workflow"],
-            x: "74%",
-            y: "26%",
+            x: "73%",
+            y: "14%",
             size: "md",
             links: [],
           },
@@ -443,12 +492,12 @@ const localeContent = {
             id: "split-bill",
             label: "Utility",
             title: "Split-Bill",
-            body: "A lightweight trip expense tool built for friends, with almost no friction and no login barrier.",
+            body: "A lightweight expense-sharing tool built for trips, designed to be quick and frictionless.",
             detail:
-              "This project came from a real-life need. It focuses on being fast, clear, and easy to use, which is very close to how I think about practical tools.",
+              "A practical tool from a real-life need, focused on low friction, direct interaction, and no login barrier.",
             tags: ["Vue 3", "Vite", "GitHub Pages"],
-            x: "82%",
-            y: "64%",
+            x: "80%",
+            y: "54%",
             size: "sm",
             links: [
               {
@@ -465,12 +514,12 @@ const localeContent = {
             id: "board-game-record",
             label: "Full-Stack",
             title: "Board Game Record",
-            body: "A board game record site with login, history lookup, and player management flows.",
+            body: "A board game record site with login, history lookup, and player management.",
             detail:
-              "One of my earlier independent full-stack projects, built with Express, MySQL, Sequelize, and Handlebars to connect authentication, game records, and player management.",
+              "An earlier full-stack project built with Express, MySQL, Sequelize, and Handlebars to connect authentication, game records, and player management.",
             tags: ["Express", "MySQL", "Sequelize"],
-            x: "18%",
-            y: "68%",
+            x: "17%",
+            y: "60%",
             size: "sm",
             links: [
               {
@@ -483,12 +532,12 @@ const localeContent = {
             id: "simple-twitter",
             label: "Collab",
             title: "Simple Twitter",
-            body: "A team-built Twitter clone where I mainly worked on backend features and database logic.",
+            body: "A team-built Twitter clone where I mainly worked on backend features and data logic.",
             detail:
-              "This was a useful collaboration project for remote teamwork, covering authentication, tweet interactions, follow flows, and Socket.IO chat features.",
+              "A remote collaboration project that covered authentication, tweet interactions, follow flows, and Socket.IO chat.",
             tags: ["Node.js", "MySQL", "Socket.IO"],
-            x: "60%",
-            y: "83%",
+            x: "57%",
+            y: "68%",
             size: "sm",
             links: [
               {
@@ -503,10 +552,10 @@ const localeContent = {
             title: "GCal-to-Notion",
             body: "A small tool for syncing Google Calendar events into Notion.",
             detail:
-              "This project is more about automation and integration than visuals. The value is in connecting two everyday systems so the workflow feels smoother.",
+              "An automation and integration side project that connects two everyday systems to make the workflow smoother.",
             tags: ["Python", "Notion", "Automation"],
-            x: "34%",
-            y: "84%",
+            x: "32%",
+            y: "76%",
             size: "sm",
             links: [],
           },
@@ -516,11 +565,18 @@ const localeContent = {
   },
 };
 
-function getLocaleFromUrl() {
+function getLocaleFromLocation() {
   if (typeof window === "undefined") return null;
-  const params = new URLSearchParams(window.location.search);
-  const urlLocale = params.get("lang");
-  return urlLocale === "zh" || urlLocale === "en" ? urlLocale : null;
+  const { pathname, search } = window.location;
+  if (pathname === "/en" || pathname.startsWith("/en/")) return "en";
+  const params = new URLSearchParams(search);
+  const fallbackLocale = params.get("lang");
+  if (fallbackLocale === "zh" || fallbackLocale === "en") return fallbackLocale;
+  return pathname === "/" ? "zh" : null;
+}
+
+function getLocalePath(locale) {
+  return locale === "en" ? "/en/" : "/";
 }
 
 function updateMetaTag(selector, content) {
@@ -621,7 +677,7 @@ function useSlideNavigation(total) {
 function App() {
   const [locale, setLocale] = useState(() => {
     if (typeof window === "undefined") return "zh";
-    const urlLocale = getLocaleFromUrl();
+    const urlLocale = getLocaleFromLocation();
     if (urlLocale) return urlLocale;
     const storedLocale = window.localStorage.getItem("site-locale");
     if (storedLocale === "zh" || storedLocale === "en") return storedLocale;
@@ -631,22 +687,69 @@ function App() {
   const content = localeContent[locale];
   const slides = content.slides;
   const siteOrigin = "https://vanessalin9.github.io";
-  const metaImageUrl = `${siteOrigin}/og-card.svg`;
+  const metaImageUrl = `${siteOrigin}/og-card.png`;
   const { currentIndex, goToSlide } = useSlideNavigation(slides.length);
   const projectSlide = slides.find((slide) => slide.id === "projects");
   const [activeProjectId, setActiveProjectId] = useState(
     projectSlide?.projects[0]?.id ?? "trackvest"
   );
+  const profileIcons = useMemo(
+    () => [Workflow, BriefcaseBusiness, Sparkles],
+    []
+  );
+  const principleIcons = useMemo(
+    () => [FlaskConical, Workflow, Sparkles],
+    []
+  );
+  const orbitStars = useMemo(
+    () =>
+      Array.from({ length: 14 }, (_, index) => ({
+        id: `star-${index}`,
+        x: `${10 + ((index * 17) % 82)}%`,
+        y: `${12 + ((index * 23) % 74)}%`,
+        delay: index * 0.4,
+      })),
+    []
+  );
+  const [orbitSpotlight, setOrbitSpotlight] = useState({ x: 50, y: 48 });
   const activeProject =
     projectSlide?.projects.find((project) => project.id === activeProjectId) ??
     projectSlide?.projects[0];
+  const introPointerX = useMotionValue(0);
+  const introPointerY = useMotionValue(0);
+  const detailPointerX = useMotionValue(0);
+  const detailPointerY = useMotionValue(0);
+  const introRotateX = useSpring(useTransform(introPointerY, [-24, 24], [6, -6]), {
+    stiffness: 150,
+    damping: 18,
+  });
+  const introRotateY = useSpring(useTransform(introPointerX, [-24, 24], [-6, 6]), {
+    stiffness: 150,
+    damping: 18,
+  });
+  const detailRotateX = useSpring(
+    useTransform(detailPointerY, [-20, 20], [4.5, -4.5]),
+    { stiffness: 150, damping: 18 }
+  );
+  const detailRotateY = useSpring(
+    useTransform(detailPointerX, [-20, 20], [-4.5, 4.5]),
+    { stiffness: 150, damping: 18 }
+  );
+  const orbitGlow = useMotionTemplate`radial-gradient(circle at ${orbitSpotlight.x}% ${orbitSpotlight.y}%, rgba(255, 255, 255, 0.76), transparent 16%)`;
+
+  const introTransition = {
+    duration: 0.68,
+    ease: [0.22, 1, 0.36, 1],
+  };
+
+  const cardTransition = {
+    type: "spring",
+    stiffness: 180,
+    damping: 18,
+  };
+
   const socialItems = [
-    {
-      id: "github",
-      label: "GitHub",
-      url: socialLinks.github,
-      icon: <GitHubIcon />,
-    },
+    { id: "github", label: "GitHub", url: socialLinks.github, icon: <GitHubIcon /> },
     {
       id: "linkedin",
       label: "LinkedIn",
@@ -667,11 +770,8 @@ function App() {
     document.title = content.meta.title;
 
     const url = new URL(window.location.href);
-    if (locale === "en") {
-      url.searchParams.set("lang", "en");
-    } else {
-      url.searchParams.delete("lang");
-    }
+    url.pathname = getLocalePath(locale);
+    url.searchParams.delete("lang");
     window.history.replaceState({}, "", url);
 
     updateMetaTag('meta[name="description"]', content.meta.description);
@@ -688,9 +788,9 @@ function App() {
     updateLinkTag('link[rel="alternate"][hreflang="zh-Hant"]', `${siteOrigin}/`);
     updateLinkTag(
       'link[rel="alternate"][hreflang="en"]',
-      `${siteOrigin}/?lang=en`
+      `${siteOrigin}/en/`
     );
-  }, [locale]);
+  }, [content.meta, locale]);
 
   useEffect(() => {
     if (!projectSlide?.projects.some((project) => project.id === activeProjectId)) {
@@ -698,11 +798,50 @@ function App() {
     }
   }, [activeProjectId, projectSlide]);
 
+  const handleOrbitMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    setOrbitSpotlight({ x, y });
+  };
+
+  const resetOrbitMove = () => {
+    setOrbitSpotlight({ x: 50, y: 48 });
+  };
+
+  const handleCardTilt = (event, setX, setY, intensity = 24) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * intensity * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * intensity * 2;
+    setX(x);
+    setY(y);
+  };
+
+  const resetCardTilt = (setX, setY) => {
+    setX(0);
+    setY(0);
+  };
+
+  const projectsIndex = slides.findIndex((slide) => slide.id === "projects");
+  const aboutIndex = slides.findIndex((slide) => slide.id === "about");
+
   return (
     <div className="app-shell">
-      <div className="ambient ambient-a" />
-      <div className="ambient ambient-b" />
-      <div className="ambient ambient-c" />
+      <motion.div
+        className="ambient ambient-a"
+        animate={{ x: [0, 18, -10, 0], y: [0, -14, 8, 0], scale: [1, 1.06, 0.98, 1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="ambient ambient-b"
+        animate={{ x: [0, -22, 12, 0], y: [0, 10, -10, 0], scale: [1, 0.96, 1.04, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="ambient ambient-c"
+        animate={{ x: [0, 12, -8, 0], y: [0, 8, -12, 0], scale: [1, 1.04, 0.97, 1] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      />
 
       <header className="topbar">
         <div className="brand">
@@ -711,43 +850,34 @@ function App() {
         </div>
         <div className="topbar-actions">
           <div className="social-links" aria-label="External links">
-            {socialItems.map((item) =>
-              item.url ? (
-                <a
-                  key={item.id}
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="social-link-button"
-                  aria-label={item.label}
-                  title={item.label}
-                >
-                  {item.icon}
-                </a>
-              ) : (
-                <button
-                  key={item.id}
-                  type="button"
-                  className="social-link-button is-disabled"
-                  aria-label={`${item.label} link not set yet`}
-                  title={`${item.label} URL not set yet`}
-                  disabled
-                >
-                  {item.icon}
-                </button>
-              )
-            )}
+            {socialItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.url}
+                target="_blank"
+                rel="noreferrer"
+                className="social-link-button"
+                aria-label={item.label}
+                title={item.label}
+              >
+                {item.icon}
+              </a>
+            ))}
           </div>
           <nav className="topbar-links" aria-label="Slide navigation">
             {slides.map((slide, index) => (
-              <button
+              <motion.button
                 key={slide.id}
-                className="ghost-button"
+                className={`ghost-button nav-pill ${
+                  index === currentIndex ? "is-active" : ""
+                }`}
                 type="button"
                 onClick={() => goToSlide(index)}
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {slide.label}
-              </button>
+              </motion.button>
             ))}
           </nav>
           <div className="locale-switch" aria-label="Language switcher">
@@ -770,9 +900,11 @@ function App() {
       </header>
 
       <main className="viewport">
-        <div
+        <motion.div
           className="slides"
-          style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
+          style={{ width: `${slides.length * 100}vw` }}
+          animate={{ x: `-${currentIndex * 100}vw` }}
+          transition={{ type: "spring", stiffness: 120, damping: 22, mass: 0.9 }}
         >
           {slides.map((slide, index) => (
             <section
@@ -783,116 +915,373 @@ function App() {
             >
               {slide.id === "intro" && (
                 <div className="slide-grid intro-grid">
-                  <div className="intro-copy">
-                    <p className="eyebrow reveal">{slide.eyebrow}</p>
-                    <p className="intro-name reveal">{slide.introName}</p>
-                    <h1 className="reveal delay-1">{slide.title}</h1>
-                    <p className="lead reveal delay-2">{slide.body}</p>
-                    <p className="intro-sublead reveal delay-2">{slide.subBody}</p>
-                    <div className="pill-row reveal delay-2">
+                  <motion.div
+                    className="intro-copy"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, x: 0 }
+                        : { opacity: 0.5, x: -24 }
+                    }
+                    transition={introTransition}
+                  >
+                    <motion.p
+                      className="eyebrow"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 18 }
+                      }
+                      transition={{ ...introTransition, delay: 0.02 }}
+                    >
+                      {slide.eyebrow}
+                    </motion.p>
+                    <motion.p
+                      className="intro-name"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 20 }
+                      }
+                      transition={{ ...introTransition, delay: 0.08 }}
+                    >
+                      {slide.introName}
+                    </motion.p>
+                    <motion.h1
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 24 }
+                      }
+                      transition={{ ...introTransition, delay: 0.14 }}
+                    >
+                      {slide.title}
+                    </motion.h1>
+                    <motion.p
+                      className="lead"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 20 }
+                      }
+                      transition={{ ...introTransition, delay: 0.22 }}
+                    >
+                      {slide.body}
+                    </motion.p>
+                    <motion.p
+                      className="intro-sublead"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 16 }
+                      }
+                      transition={{ ...introTransition, delay: 0.28 }}
+                    >
+                      {slide.subBody}
+                    </motion.p>
+                    <motion.div
+                      className="pill-row"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 14 }
+                      }
+                      transition={{ ...introTransition, delay: 0.34 }}
+                    >
                       {slide.pills.map((pill) => (
-                        <span key={pill} className="pill">
+                        <motion.span
+                          key={pill}
+                          className="pill"
+                          whileHover={{ y: -2, scale: 1.02 }}
+                        >
                           {pill}
-                        </span>
+                        </motion.span>
                       ))}
-                    </div>
-                    <div className="cta-row reveal delay-3">
-                      <button
+                    </motion.div>
+                    <motion.div
+                      className="cta-row"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 16 }
+                      }
+                      transition={{ ...introTransition, delay: 0.4 }}
+                    >
+                      <motion.button
                         className="primary-button"
                         type="button"
-                        onClick={() => goToSlide(3)}
+                        onClick={() => goToSlide(projectsIndex)}
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         {content.buttons.work}
-                      </button>
-                      <button
+                      </motion.button>
+                      <motion.button
                         className="ghost-button"
                         type="button"
-                        onClick={() => goToSlide(1)}
+                        onClick={() => goToSlide(aboutIndex)}
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         {content.buttons.story}
-                      </button>
-                    </div>
-                  </div>
+                      </motion.button>
+                    </motion.div>
+                    <motion.div
+                      className="micro-notes"
+                      initial={false}
+                      animate={
+                        index === currentIndex
+                          ? { opacity: 1, y: 0 }
+                          : { opacity: 0, y: 18 }
+                      }
+                      transition={{ ...introTransition, delay: 0.46 }}
+                    >
+                      <div className="micro-note">
+                        <FlaskConical size={16} strokeWidth={2.1} />
+                        <span>
+                          {locale === "zh"
+                            ? "研究習慣仍然影響我怎麼做產品"
+                            : "research habits still shape how I build"}
+                        </span>
+                      </div>
+                      <div className="micro-note">
+                        <Sparkles size={16} strokeWidth={2.1} />
+                        <span>
+                          {locale === "zh"
+                            ? "偏好實用工具、乾淨流程與產品化系統"
+                            : "small tools, clean flows, product-minded systems"}
+                        </span>
+                      </div>
+                    </motion.div>
+                  </motion.div>
 
-                  <aside className="info-card reveal delay-3">
+                  <motion.aside
+                    className="info-card"
+                    initial={false}
+                    style={{
+                      rotateX: introRotateX,
+                      rotateY: introRotateY,
+                      transformPerspective: 1200,
+                    }}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0, rotate: -1.8 }
+                        : { opacity: 0.35, y: 22, rotate: -0.6 }
+                    }
+                    transition={cardTransition}
+                    whileHover={{ rotate: -0.6, y: -6 }}
+                    onMouseMove={(event) =>
+                      handleCardTilt(event, introPointerX, introPointerY)
+                    }
+                    onMouseLeave={() => resetCardTilt(introPointerX, introPointerY)}
+                  >
                     <div className="note-pin" aria-hidden="true" />
                     <p className="note-meta">{slide.noteMeta}</p>
                     <p className="card-label">{content.labels.why}</p>
                     <h2>{slide.noteTitle}</h2>
                     <div className="profile-rows">
-                      {slide.profileRows.map((row) => (
-                        <div key={row.label} className="profile-row">
-                          <p className="profile-row-label">{row.label}</p>
-                          <p className="profile-row-value">{row.value}</p>
-                        </div>
-                      ))}
+                      {slide.profileRows.map((row, rowIndex) => {
+                        const RowIcon = profileIcons[rowIndex];
+                        return (
+                          <div key={row.label} className="profile-row">
+                            <p className="profile-row-label">{row.label}</p>
+                            <p className="profile-row-value">
+                              {RowIcon ? <RowIcon size={16} strokeWidth={2.2} /> : null}
+                              <span>{row.value}</span>
+                            </p>
+                          </div>
+                        );
+                      })}
                     </div>
                     <p className="note-footer">{slide.noteFooter}</p>
-                  </aside>
+                  </motion.aside>
                 </div>
               )}
 
-              {slide.id === "about" && (
+              {(slide.id === "about" || slide.id === "strengths") && (
                 <div className="slide-grid story-grid">
-                  <article className="story-panel reveal">
+                  <motion.article
+                    className="story-panel"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.3, y: 20 }
+                    }
+                    transition={introTransition}
+                  >
                     <p className="eyebrow">{slide.label}</p>
                     <h2>{slide.title}</h2>
                     {slide.paragraphs.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
-                  </article>
+                  </motion.article>
 
-                  <div className="principles-panel reveal delay-2">
-                    <p className="card-label">{content.labels.howIWork}</p>
+                  <motion.div
+                    className="principles-panel"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.35, y: 24 }
+                    }
+                    transition={{ ...introTransition, delay: 0.14 }}
+                  >
+                    <p className="card-label">
+                      {slide.id === "strengths"
+                        ? content.labels.whatIBring
+                        : content.labels.howIWork}
+                    </p>
                     <div className="principle-list">
-                      {slide.principles.map((principle) => (
-                        <article key={principle.title} className="principle-card">
-                          <h3>{principle.title}</h3>
-                          <p>{principle.body}</p>
-                        </article>
-                      ))}
+                      {slide.principles.map((principle, principleIndex) => {
+                        const PrincipleIcon = principleIcons[principleIndex];
+                        return (
+                          <motion.article
+                            key={principle.title}
+                            className="principle-card"
+                            whileHover={{ y: -6, scale: 1.01 }}
+                            transition={cardTransition}
+                          >
+                            {PrincipleIcon ? (
+                              <span className="principle-icon">
+                                <PrincipleIcon size={18} strokeWidth={2.1} />
+                              </span>
+                            ) : null}
+                            <h3>{principle.title}</h3>
+                            <p>{principle.body}</p>
+                          </motion.article>
+                        );
+                      })}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               )}
 
               {slide.id === "work" && (
                 <div className="slide-grid work-grid">
-                  <div className="section-copy reveal">
+                  <motion.div
+                    className="section-copy"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.35, y: 24 }
+                    }
+                    transition={introTransition}
+                  >
                     <p className="eyebrow">{slide.label}</p>
                     <h2>{slide.title}</h2>
-                  </div>
-                  <div className="timeline reveal delay-2">
+                  </motion.div>
+                  <motion.div
+                    className="timeline"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.2, y: 24 }
+                    }
+                    transition={{ ...introTransition, delay: 0.16 }}
+                  >
                     {slide.timeline.map((item) => (
-                      <article key={item.title} className="timeline-card">
+                      <motion.article
+                        key={item.title}
+                        className="timeline-card"
+                        whileHover={{ y: -8, scale: 1.01 }}
+                        transition={cardTransition}
+                      >
                         <span className="timeline-meta">{item.meta}</span>
                         <h3>{item.title}</h3>
                         <p>{item.body}</p>
-                      </article>
+                      </motion.article>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
               )}
 
               {slide.id === "projects" && (
                 <div className="slide-grid projects-grid">
-                  <div className="section-copy reveal">
+                  <motion.div
+                    className="section-copy"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.35, y: 24 }
+                    }
+                    transition={introTransition}
+                  >
                     <p className="eyebrow">{slide.label}</p>
-                    <h2>{slide.title}</h2>
-                  </div>
+                  </motion.div>
 
-                  <div className="showcase-layout reveal delay-2">
-                    <div className="orbit-stage" aria-label="Project showcase orbit">
-                      <div className="orbit-core">
-                        <span className="orbit-core-label">{content.labels.projectOrbit}</span>
+                  <motion.div
+                    className="showcase-layout"
+                    initial={false}
+                    animate={
+                      index === currentIndex
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0.2, y: 24 }
+                    }
+                    transition={{ ...introTransition, delay: 0.14 }}
+                  >
+                    <motion.div
+                      className="orbit-stage"
+                      aria-label="Project showcase orbit"
+                      onMouseMove={handleOrbitMove}
+                      onMouseLeave={resetOrbitMove}
+                      style={{
+                        "--spotlight-x": `${orbitSpotlight.x}%`,
+                        "--spotlight-y": `${orbitSpotlight.y}%`,
+                        backgroundImage: `${orbitGlow}, radial-gradient(circle at center, rgba(139, 170, 183, 0.18), transparent 34%), linear-gradient(rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.46))`,
+                      }}
+                    >
+                      {orbitStars.map((star) => (
+                        <motion.span
+                          key={star.id}
+                          className="orbit-star"
+                          style={{ left: star.x, top: star.y }}
+                          animate={{ opacity: [0.18, 0.8, 0.25], scale: [0.9, 1.25, 1] }}
+                          transition={{
+                            duration: 3.8,
+                            delay: star.delay,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      ))}
+                      <motion.div
+                        className="orbit-core"
+                        animate={{ rotate: [0, 4, -4, 0], scale: [1, 1.03, 0.99, 1] }}
+                        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <span className="orbit-core-label">
+                          {content.labels.projectOrbit}
+                        </span>
                         <strong>{content.labels.lab}</strong>
-                      </div>
-                      <div className="orbit-ring orbit-ring-a" />
-                      <div className="orbit-ring orbit-ring-b" />
-                      <div className="orbit-ring orbit-ring-c" />
-
-                      {slide.projects.map((project) => (
-                        <button
+                      </motion.div>
+                      <motion.div
+                        className="orbit-ring orbit-ring-a"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                      />
+                      <motion.div
+                        className="orbit-ring orbit-ring-b"
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 44, repeat: Infinity, ease: "linear" }}
+                      />
+                      <motion.div
+                        className="orbit-ring orbit-ring-c"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 62, repeat: Infinity, ease: "linear" }}
+                      />
+                      {slide.projects.map((project, projectIndex) => (
+                        <motion.button
                           key={project.id}
                           type="button"
                           className={`orbit-node orbit-node-${project.size} ${
@@ -903,14 +1292,56 @@ function App() {
                           onFocus={() => setActiveProjectId(project.id)}
                           onClick={() => setActiveProjectId(project.id)}
                           aria-label={`Show ${project.title}`}
+                          whileHover={{
+                            boxShadow: "0 24px 38px rgba(61, 62, 75, 0.18)",
+                          }}
+                          whileTap={{ scale: 0.98 }}
+                          animate={{
+                            y:
+                              activeProject?.id === project.id
+                                ? -6
+                                : [0, -4, 0, 3, 0],
+                            boxShadow:
+                              activeProject?.id === project.id
+                                ? "0 22px 34px rgba(61, 62, 75, 0.16)"
+                                : "0 16px 28px rgba(61, 62, 75, 0.1)",
+                          }}
+                          transition={
+                            activeProject?.id === project.id
+                              ? cardTransition
+                              : {
+                                  duration: 6 + projectIndex * 0.45,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                }
+                          }
                         >
                           <span>{project.title}</span>
-                        </button>
+                        </motion.button>
                       ))}
-                    </div>
+                    </motion.div>
 
-                    <aside className="showcase-detail">
+                    <motion.aside
+                      key={activeProject?.id}
+                      className="showcase-detail"
+                      style={{
+                        rotateX: detailRotateX,
+                        rotateY: detailRotateY,
+                        transformPerspective: 1200,
+                      }}
+                      initial={{ opacity: 0, y: 22, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={cardTransition}
+                      onMouseMove={(event) =>
+                        handleCardTilt(event, detailPointerX, detailPointerY, 20)
+                      }
+                      onMouseLeave={() => resetCardTilt(detailPointerX, detailPointerY)}
+                    >
                       <p className="card-label">{content.labels.selectedProject}</p>
+                      <p className="showcase-hint">
+                        <BadgeInfo size={15} strokeWidth={2.1} />
+                        <span>{content.labels.showcaseHint}</span>
+                      </p>
                       <span
                         className={`project-label detail-label ${
                           activeProject?.accent ? "accent" : ""
@@ -938,22 +1369,21 @@ function App() {
                               rel="noreferrer"
                               className="showcase-link-button"
                             >
-                              {link.label}
+                              <span>{link.label}</span>
+                              <ExternalLink size={16} strokeWidth={2.2} />
                             </a>
                           ))}
                         </div>
                       ) : (
-                        <p className="showcase-note">
-                          {content.labels.noPublicLink}
-                        </p>
+                        <p className="showcase-note">{content.labels.noPublicLink}</p>
                       )}
-                    </aside>
-                  </div>
+                    </motion.aside>
+                  </motion.div>
                 </div>
               )}
             </section>
           ))}
-        </div>
+        </motion.div>
       </main>
 
       <div className="hud">
@@ -965,33 +1395,39 @@ function App() {
           />
         </div>
         <div className="hud-controls">
-          <button
+          <motion.button
             className="circle-button"
             type="button"
             aria-label="Previous slide"
             onClick={() => goToSlide(currentIndex - 1)}
+            whileHover={{ y: -2, scale: 1.04 }}
+            whileTap={{ scale: 0.95 }}
           >
-            ←
-          </button>
+            <ArrowLeft size={18} strokeWidth={2.4} />
+          </motion.button>
           <div className="slide-dots" aria-label="Slide indicators">
             {slides.map((slide, index) => (
-              <button
+              <motion.button
                 key={slide.id}
                 className={`slide-dot ${index === currentIndex ? "is-active" : ""}`}
                 type="button"
                 aria-label={`Go to ${slide.label}`}
                 onClick={() => goToSlide(index)}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
               />
             ))}
           </div>
-          <button
+          <motion.button
             className="circle-button"
             type="button"
             aria-label="Next slide"
             onClick={() => goToSlide(currentIndex + 1)}
+            whileHover={{ y: -2, scale: 1.04 }}
+            whileTap={{ scale: 0.95 }}
           >
-            →
-          </button>
+            <ArrowRight size={18} strokeWidth={2.4} />
+          </motion.button>
         </div>
       </div>
     </div>
