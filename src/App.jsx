@@ -565,11 +565,18 @@ const localeContent = {
   },
 };
 
-function getLocaleFromUrl() {
+function getLocaleFromLocation() {
   if (typeof window === "undefined") return null;
-  const params = new URLSearchParams(window.location.search);
-  const urlLocale = params.get("lang");
-  return urlLocale === "zh" || urlLocale === "en" ? urlLocale : null;
+  const { pathname, search } = window.location;
+  if (pathname === "/en" || pathname.startsWith("/en/")) return "en";
+  const params = new URLSearchParams(search);
+  const fallbackLocale = params.get("lang");
+  if (fallbackLocale === "zh" || fallbackLocale === "en") return fallbackLocale;
+  return pathname === "/" ? "zh" : null;
+}
+
+function getLocalePath(locale) {
+  return locale === "en" ? "/en/" : "/";
 }
 
 function updateMetaTag(selector, content) {
@@ -670,7 +677,7 @@ function useSlideNavigation(total) {
 function App() {
   const [locale, setLocale] = useState(() => {
     if (typeof window === "undefined") return "zh";
-    const urlLocale = getLocaleFromUrl();
+    const urlLocale = getLocaleFromLocation();
     if (urlLocale) return urlLocale;
     const storedLocale = window.localStorage.getItem("site-locale");
     if (storedLocale === "zh" || storedLocale === "en") return storedLocale;
@@ -680,7 +687,7 @@ function App() {
   const content = localeContent[locale];
   const slides = content.slides;
   const siteOrigin = "https://vanessalin9.github.io";
-  const metaImageUrl = `${siteOrigin}/og-card.svg`;
+  const metaImageUrl = `${siteOrigin}/og-card.png`;
   const { currentIndex, goToSlide } = useSlideNavigation(slides.length);
   const projectSlide = slides.find((slide) => slide.id === "projects");
   const [activeProjectId, setActiveProjectId] = useState(
@@ -763,11 +770,8 @@ function App() {
     document.title = content.meta.title;
 
     const url = new URL(window.location.href);
-    if (locale === "en") {
-      url.searchParams.set("lang", "en");
-    } else {
-      url.searchParams.delete("lang");
-    }
+    url.pathname = getLocalePath(locale);
+    url.searchParams.delete("lang");
     window.history.replaceState({}, "", url);
 
     updateMetaTag('meta[name="description"]', content.meta.description);
@@ -784,7 +788,7 @@ function App() {
     updateLinkTag('link[rel="alternate"][hreflang="zh-Hant"]', `${siteOrigin}/`);
     updateLinkTag(
       'link[rel="alternate"][hreflang="en"]',
-      `${siteOrigin}/?lang=en`
+      `${siteOrigin}/en/`
     );
   }, [content.meta, locale]);
 
