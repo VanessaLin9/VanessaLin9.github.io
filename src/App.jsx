@@ -58,7 +58,7 @@ function CakeResumeIcon() {
 
 const localeContent = {
   zh: {
-    brandTitle: "Personal Site Prototype",
+    brandTitle: "Workflow / Integration / Product Systems",
     meta: {
       title: "Vanessa Lin | 軟體工程師 / Product Engineer",
       description:
@@ -101,7 +101,7 @@ const localeContent = {
         noteMeta: "At a Glance",
         profileRows: [
           { label: "Focus", value: "workflow-oriented product development" },
-          { label: "Current", value: "React dApp, NestJS API, SDK, AI workflow" },
+          { label: "Recent", value: "React dApp, NestJS API, SDK, AI workflow" },
           {
             label: "Strength",
             value: "integration, product logic, system boundaries",
@@ -138,19 +138,19 @@ const localeContent = {
         title: "工程工作經歷。",
         timeline: [
           {
-            meta: "2025 / 07 - Present",
+            meta: "2025 / 07 - 2026 / 04",
             title: "LAVARAGE",
-            body: "在跨國、全英文環境參與 Web3 / DeFi 產品開發，負責 React dApp、NestJS API、資料流程、SDK 串接與 AI workflow。",
+            body: "在跨國、全英文環境參與 Web3 / DeFi 產品開發，負責 React dApp、NestJS API、SDK 與資料流程，也實作 referral system、交易流程優化與內部 AI support workflow。",
           },
           {
             meta: "2023 / 07 - 2025 / 02",
             title: "TitanSoft",
-            body: "以 C# / .NET 維護與重構既有系統，處理後端流程調整、第三方整合，以及 unit / E2E test 補強。",
+            body: "以 C# / .NET 維護與重構既有系統，在 microservices 環境處理後端流程調整、第三方整合與 unit / E2E test 補強。",
           },
           {
             meta: "2011 - 2020",
-            title: "Research Labs",
-            body: "在醫學院、醫院與研究機構做生物醫學研究，培養了系統化分析、文件整理與快速學習陌生領域的能力。",
+            title: "NTUH / Academia Sinica Research",
+            body: "在臺大醫院、臺大醫學院與中央研究院做生物醫學研究，培養了系統化分析、文件整理與快速學習陌生領域的能力。",
           },
         ],
       },
@@ -168,7 +168,7 @@ const localeContent = {
           },
           {
             title: "Backend Foundation",
-            body: "熟悉 Node.js / TypeScript，也有 API、資料流與整合實作經驗。",
+            body: "熟悉 Node.js / TypeScript，也有 C# / .NET、API、資料流與整合實作經驗。",
           },
           {
             title: "Domain Learning",
@@ -207,9 +207,9 @@ const localeContent = {
             label: "Workflow Tool",
             accent: true,
             title: "JD Saver",
-            body: "把正在看的職缺頁面直接寫進 Google Sheet 的 Chrome extension，讓求職資料收集更順。",
+            body: "求職 workflow 系統的對外切面：把正在看的職缺頁面直接寫進 Google Sheet 的 Chrome extension。",
             detail:
-              "從真實 workflow 長出來的工具，整合 Chrome extension、Google OAuth、Google Sheets API 與站點 extractor，把麻煩的收集流程整理成可重複使用的產品。",
+              "目前對外以 Chrome extension 形式呈現，但背後其實是更大的 job search workflow system：結合 JD 擷取、Google Sheets、OpenClaw ingestion、推薦與狀態管理。",
             tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
             x: "18%",
             y: "16%",
@@ -275,43 +275,12 @@ const localeContent = {
               },
             ],
           },
-          {
-            id: "simple-twitter",
-            label: "Collab",
-            title: "Simple Twitter",
-            body: "多人協作的 Twitter clone，負責後端功能與資料表邏輯。",
-            detail:
-              "和團隊遠端協作完成的 full-stack clone project，包含登入、推文互動、追蹤與 Socket.IO 聊天功能。",
-            tags: ["Node.js", "MySQL", "Socket.IO"],
-            x: "57%",
-            y: "68%",
-            size: "sm",
-            links: [
-              {
-                label: "Repo",
-                url: "https://github.com/VanessaLin9/twitter-fullstack-2020",
-              },
-            ],
-          },
-          {
-            id: "gcal-to-notion",
-            label: "Tooling",
-            title: "GCal-to-Notion",
-            body: "把 Google Calendar 行程同步到 Notion 的小工具。",
-            detail:
-              "偏自動化與整合型 side project，把兩個日常系統之間的資料流接起來，讓工作流程更順。",
-            tags: ["Python", "Notion", "Automation"],
-            x: "32%",
-            y: "76%",
-            size: "sm",
-            links: [],
-          },
         ],
       },
     ],
   },
   en: {
-    brandTitle: "Personal Site Prototype",
+    brandTitle: "Workflow / Integration / Product Systems",
     meta: {
       title: "Vanessa Lin | Software Engineer / Product Engineer",
       description:
@@ -354,7 +323,7 @@ const localeContent = {
         noteMeta: "At a Glance",
         profileRows: [
           { label: "Focus", value: "workflow-oriented product development" },
-          { label: "Current", value: "React dApp, NestJS API, SDK, AI workflow" },
+          { label: "Recent", value: "React dApp, NestJS API, SDK, AI workflow" },
           {
             label: "Strength",
             value: "integration, product logic, system boundaries",
@@ -391,19 +360,19 @@ const localeContent = {
         title: "Software engineering experience.",
         timeline: [
           {
-            meta: "2025 / 07 - Present",
+            meta: "2025 / 07 - 2026 / 04",
             title: "LAVARAGE",
-            body: "Working in a cross-border, English-first environment on Web3 / DeFi products across React dApp, NestJS API, data workflows, SDK integration, and AI workflow design.",
+            body: "Worked in a cross-border, English-first environment on Web3 / DeFi products across React dApp, NestJS API, SDK integration, and data workflows, including referral features, transaction flow improvements, and an internal AI support workflow.",
           },
           {
             meta: "2023 / 07 - 2025 / 02",
             title: "TitanSoft",
-            body: "Maintained and refactored existing C# / .NET systems, handling backend flow changes, third-party integrations, and stronger unit / E2E test coverage.",
+            body: "Maintained and refactored existing C# / .NET systems in a microservices environment, covering backend flow changes, third-party integrations, and stronger unit / E2E test coverage.",
           },
           {
             meta: "2011 - 2020",
-            title: "Research Labs",
-            body: "Worked in biomedical research environments, which shaped my habits around structured analysis, documentation, and learning unfamiliar domains quickly.",
+            title: "NTUH / Academia Sinica Research",
+            body: "Worked in biomedical research across NTUH, NTU College of Medicine, and Academia Sinica, which shaped my habits around structured analysis, documentation, and learning unfamiliar domains quickly.",
           },
         ],
       },
@@ -421,7 +390,7 @@ const localeContent = {
           },
           {
             title: "Backend Foundation",
-            body: "Comfortable with Node.js / TypeScript, APIs, data flow design, and integration-heavy implementation.",
+            body: "Comfortable with Node.js / TypeScript, C# / .NET, APIs, data flow design, and integration-heavy implementation.",
           },
           {
             title: "Domain Learning",
@@ -460,9 +429,9 @@ const localeContent = {
             label: "Workflow Tool",
             accent: true,
             title: "JD Saver",
-            body: "A Chrome extension that writes the job page you are viewing directly into Google Sheets and makes job tracking smoother.",
+            body: "The outward-facing slice of a larger job search workflow system: a Chrome extension that writes the job page you are viewing directly into Google Sheets.",
             detail:
-              "A tool grown from a real workflow. It combines a Chrome extension, Google OAuth, the Google Sheets API, and site-specific extractors into one repeatable product flow.",
+              "Right now it is presented publicly as a Chrome extension, but it is really part of a larger job search workflow system that connects JD capture, Google Sheets, OpenClaw ingestion, recommendations, and status tracking.",
             tags: ["Chrome Extension", "Google Sheets API", "Workflow Automation"],
             x: "18%",
             y: "16%",
@@ -527,37 +496,6 @@ const localeContent = {
                 url: "https://github.com/VanessaLin9/GHrecord-P05",
               },
             ],
-          },
-          {
-            id: "simple-twitter",
-            label: "Collab",
-            title: "Simple Twitter",
-            body: "A team-built Twitter clone where I mainly worked on backend features and data logic.",
-            detail:
-              "A remote collaboration project that covered authentication, tweet interactions, follow flows, and Socket.IO chat.",
-            tags: ["Node.js", "MySQL", "Socket.IO"],
-            x: "57%",
-            y: "68%",
-            size: "sm",
-            links: [
-              {
-                label: "Repo",
-                url: "https://github.com/VanessaLin9/twitter-fullstack-2020",
-              },
-            ],
-          },
-          {
-            id: "gcal-to-notion",
-            label: "Tooling",
-            title: "GCal-to-Notion",
-            body: "A small tool for syncing Google Calendar events into Notion.",
-            detail:
-              "An automation and integration side project that connects two everyday systems to make the workflow smoother.",
-            tags: ["Python", "Notion", "Automation"],
-            x: "32%",
-            y: "76%",
-            size: "sm",
-            links: [],
           },
         ],
       },
